@@ -28,7 +28,7 @@ var optionsBar = {
             data: Object.values(acidentesPorTipo),
         },
         {
-            name: "Total de acidentes com mortes",
+            name: "Total de mortes",
             data: Object.values(acidentesMortesPorTipo),
         },
     ],
@@ -127,7 +127,7 @@ var optionsOperacaoBar = {
             ),
         },
         {
-            name: "Total de acidentes com mortes",
+            name: "Total de mortes",
             data: Object.values(totalAcidentesPorOperacao).map(
                 (item) => item.total_mortes
             ),
@@ -206,6 +206,112 @@ var optionsOperacaoBar = {
 var chartBar = new ApexCharts(
     document.querySelector("#bar_operacao_fator"),
     optionsOperacaoBar
+);
+chartBar.render();
+
+var optionsNivelDanoBar = {
+    chart: {
+        type: "bar",
+        height: 300,
+        width: "100%",
+        foreColor: "#999",
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true,
+                position: "top",
+            },
+        },
+    },
+    colors: ["#00C5A4", "#FFB900"],
+    series: [
+        {
+            name: "Total de acidentes",
+            data: Object.values(totalAcidentesPorNivelDano).map(
+                (item) => item.total_geral
+            ),
+        },
+        {
+            name: "Total de mortes",
+            data: Object.values(totalAcidentesPorNivelDano).map(
+                (item) => item.total_mortes
+            ),
+        },
+    ],
+    labels: Object.keys(totalAcidentesPorNivelDano).map((item) =>
+        item.split(" ")
+    ),
+    xaxis: {
+        axisBorder: {
+            show: true,
+        },
+        axisTicks: {
+            show: true,
+        },
+        crosshairs: {
+            show: true,
+        },
+        labels: {
+            show: true,
+            style: {
+                fontSize: "14px",
+            },
+        },
+    },
+    dataLabels: {
+        enabled: true,
+        formatter: function (val) {
+            return val;
+        },
+        offsetY: -30,
+        style: {
+            fontSize: "12px",
+            colors: ["#304758"],
+        },
+    },
+    grid: {
+        xaxis: {
+            lines: {
+                show: false,
+            },
+        },
+        yaxis: {
+            lines: {
+                show: true,
+            },
+        },
+    },
+    yaxis: {
+        axisBorder: {
+            show: true,
+        },
+        labels: {
+            show: true,
+        },
+    },
+    legend: {
+        floating: true,
+        position: "top",
+        horizontalAlign: "right",
+        offsetY: -36,
+    },
+    title: {
+        text: "Qual operação existe mais acidentes",
+        align: "left",
+    },
+    subtitle: {
+        // text: "Sessions and Views",
+    },
+    tooltip: {
+        shared: true,
+        intersect: false,
+    },
+};
+
+var chartBar = new ApexCharts(
+    document.querySelector("#bar_nivel_dano"),
+    optionsNivelDanoBar
 );
 chartBar.render();
 
@@ -374,6 +480,42 @@ var optionsBoxPlotSp = {
 var chartMortesBar = new ApexCharts(
     document.querySelector("#box_plot_sp"),
     optionsBoxPlotSp
+);
+chartMortesBar.render();
+
+var optionsBoxPlotMortes = {
+    series: [
+        {
+            type: "boxPlot",
+            data: [
+                {
+                    x: "Mortes por acidentes",
+                    y: mortesTotalBox,
+                },
+            ],
+        },
+    ],
+    chart: {
+        type: "boxPlot",
+        height: 350,
+    },
+    title: {
+        text: "Mortes por Acidente",
+        align: "left",
+    },
+    plotOptions: {
+        boxPlot: {
+            colors: {
+                upper: "#5a534b",
+                lower: "#7e7d7d",
+            },
+        },
+    },
+};
+
+var chartMortesBar = new ApexCharts(
+    document.querySelector("#box_plot_mortes"),
+    optionsBoxPlotMortes
 );
 chartMortesBar.render();
 

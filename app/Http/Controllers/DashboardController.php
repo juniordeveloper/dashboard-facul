@@ -8,6 +8,7 @@ use App\Services\Graficos\AcidentesPorTimeAeronaveService;
 use App\Services\Graficos\TotalAcidentesPorAnoService;
 use App\Services\Graficos\TotalAcidentesPorAnoSpService;
 use App\Services\Graficos\TotalAcidentesPorFatorService;
+use App\Services\Graficos\TotalAcidentesPorNivelDanoService;
 use App\Services\Graficos\TotalAcidentesPorOperacaoService;
 use Illuminate\Support\Facades\Cache;
 
@@ -19,15 +20,20 @@ class DashboardController extends Controller
         TotalAcidentesPorAnoSpService $totalAcidentesPorAnoSpService,
         TotalAcidentesPorFatorService $totalAcidentesPorFatorService,
         TotalAcidentesPorOperacaoService $totalAcidentesPorOperacaoService,
+        TotalAcidentesPorNivelDanoService $totalAcidentesPorNivelDanoService,
         TotalAcidentesPorAnoService $totalAcidentesPorAnoService
     ) {
         $rows = $this->loadCSV(resource_path('cenipa.csv'));
-        // dd($rows->pluck('tipo-de-categoria-da-ocorrencia')->unique()->toArray());
+        $mortesTotal = $rows->pluck('total-de-fatalidades-no-acidente')->filter(fn($x) => $x > 0)->toArray();
+        $mortesTotalBox = Utils::boxplotData($mortesTotal);
+        $mortesEstatistica = Utils::calcularEstatisticas($mortesTotal);
+        // dd($mortesTotalBox, $mortesEstatistica);
         // dd($rows->pluck('tipo-de-ocorrencia')->unique()->toArray());
         // dd($rows[0]);
 
         $totalAcidentesPorFator = $totalAcidentesPorFatorService->handler();
-        // dd($totalAcidentesPorFator);
+        $totalAcidentesPorNivelDano = $totalAcidentesPorNivelDanoService->handler();
+        // dd($totalAcidentesPorNivelDano->toArray());
         $totalAcidentesPorOperacao = $totalAcidentesPorOperacaoService->handler();
         $totalAcidentesPorOperacaoLimit = $totalAcidentesPorOperacao->slice(0, 10);
 
@@ -39,13 +45,13 @@ class DashboardController extends Controller
         $acidentesMortesPorTipo = $acidentesMortesTipoAeronaveService->handler();
         $totalAcidentesPorAno = $totalAcidentesPorAnoService->handler();
         $boxPlotAcidentesPorAnoBr = Utils::boxplotData($totalAcidentesPorAno->toArray());
-        $mediaTotalAcidentesPorAno = number_format($totalAcidentesPorAno->sum() / $totalAcidentesPorAno->count(), 0);
-        $medianaTotalAcidentesPorAno = number_format($totalAcidentesPorAno->median());
+        $estatisticasTotalAcidentesPorAno = Utils::calcularEstatisticas($totalAcidentesPorAno->toArray());
 
         $totalAcidentesPorAnoSp = $totalAcidentesPorAnoSpService->handler();
         $boxPlotAcidentesPorAnoSP = Utils::boxplotData($totalAcidentesPorAnoSp->toArray());
         $mediaTotalAcidentesPorAnoSp = number_format($totalAcidentesPorAnoSp->sum() / $totalAcidentesPorAnoSp->count(), 0);
         $medianaTotalAcidentesPorAnoSp = number_format($totalAcidentesPorAnoSp->median(), 0);
+        $estatisticasTotalAcidentesPorAnoSp = Utils::calcularEstatisticas($totalAcidentesPorAnoSp->toArray());
 
         return view('dashboard', compact(
             'acidentesPorTipo',
@@ -54,12 +60,15 @@ class DashboardController extends Controller
             'totalAcidentesPorAnoSp',
             'mediaTotalAcidentesPorAnoSp',
             'medianaTotalAcidentesPorAnoSp',
-            'mediaTotalAcidentesPorAno',
-            'medianaTotalAcidentesPorAno',
+            'estatisticasTotalAcidentesPorAno',
+            'estatisticasTotalAcidentesPorAnoSp',
             'totalAcidentesPorOperacao',
             'totalAcidentesPorOperacaoLimit',
+            'totalAcidentesPorNivelDano',
             'boxPlotAcidentesPorAnoBr',
-            'boxPlotAcidentesPorAnoSP'
+            'boxPlotAcidentesPorAnoSP',
+            'mortesEstatistica',
+            'mortesTotalBox'
         ));
     }
 

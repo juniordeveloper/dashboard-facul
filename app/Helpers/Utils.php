@@ -386,7 +386,7 @@ class Utils
         return $boxplot_data;
     }
 
-    function boxplotDataWithOutliers($data)
+    public static function boxplotDataWithOutliers($data)
     {
         sort($data);
         $min = $data[0];
@@ -408,6 +408,35 @@ class Utils
             return (int) ($item);
         }, $boxplot_data);
         return $boxplot_data;
+    }
+
+    public static function calcularEstatisticas($lista)
+    {
+        // Média
+        $media = array_sum($lista) / count($lista);
+
+        // Mediana
+        sort($lista);
+        $tamanho = count($lista);
+        $mediana = ($tamanho % 2 == 0) ? ($lista[$tamanho / 2 - 1] + $lista[$tamanho / 2]) / 2 : $lista[$tamanho / 2];
+
+        // Moda
+        $frequencias = array_count_values($lista);
+        $moda = array_keys($frequencias, max($frequencias));
+
+        // Mínimo e máximo
+        $minimo = min($lista);
+        $maximo = max($lista);
+
+        // array com as estatísticas calculadas
+        $listaEstatistica = [
+            'media' => number_format($media, 0),
+            'mediana' => number_format($mediana, 0),
+            'moda' => array_map(fn($item) => number_format($item, 0), $moda),
+            'minimo' => number_format($minimo, 0),
+            'maximo' => number_format($maximo, 0),
+        ];
+        return $listaEstatistica;
     }
 
     public static function median($data)

@@ -3,6 +3,7 @@
 namespace {{ namespace }};
 
 use {{ namespace }}\Contracts\{{ class }}Interface;
+use Illuminate\Support\Facades\Cache;
 
 class {{ class }} implements {{ class }}Interface
 {

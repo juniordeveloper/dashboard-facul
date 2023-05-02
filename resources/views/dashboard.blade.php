@@ -29,7 +29,7 @@
             </div>
         </nav>
     </header>
-    <div id="wrapper">
+    <div id="wrapper" class="container-fluid">
         <div class="content-area mb-5">
             <div class="main">
                 <div class="row mt-4 mb-4">
@@ -40,14 +40,19 @@
                     </div>
                 </div>
                 <div class="row mt-4 mb-4">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="box shadow">
                             <div id="box_plot_br"></div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="box shadow">
                             <div id="box_plot_sp"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box shadow">
+                            <div id="box_plot_mortes"></div>
                         </div>
                     </div>
                 </div>
@@ -73,35 +78,76 @@
                     </div>
                 </div>
 
+                <div class="row mt-4 mb-4">
+                    <div class="col-md-12">
+                        <div class="box shadow">
+                            <div id="bar_nivel_dano"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <div class="box shadow">
+                            <h6>Média de mortes por acidente</h6>
+                            <h1>{{ $mortesEstatistica['media'] }}</h1>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="box shadow">
+                            <h6>Moda de mortes por acidente</h6>
+                            <h1>{{ implode(', ', $mortesEstatistica['moda']) }}</h1>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="box shadow">
+                            <h6>Mediana de mortes por acidente</h6>
+                            <h1>{{ $mortesEstatistica['mediana'] }}</h1>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="box shadow">
+                            <h6>Mínimo de mortes por acidente</h6>
+                            <h1>{{ $mortesEstatistica['minimo'] }}</h1>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="box shadow">
+                            <h6>Máximo de mortes por acidente</h6>
+                            <h1>{{ $mortesEstatistica['maximo'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="row mt-4">
                     <div class="col">
                         <div class="box shadow">
                             <h6>Média de acidentes BR</h6>
-                            <h1>{{ $mediaTotalAcidentesPorAno }}</h1>
+                            <h1>{{ $estatisticasTotalAcidentesPorAno['media'] }}</h1>
                         </div>
                     </div>
                     <div class="col">
                         <div class="box shadow">
                             <h6>Moda de acidentes BR</h6>
-                            <h1> - </h1>
+                            <h1>{{ implode(', ', $estatisticasTotalAcidentesPorAno['moda']) }}</h1>
                         </div>
                     </div>
                     <div class="col">
                         <div class="box shadow">
                             <h6>Mediana de acidentes BR</h6>
-                            <h1>{{ $medianaTotalAcidentesPorAno }}</h1>
+                            <h1>{{ $estatisticasTotalAcidentesPorAno['mediana'] }}</h1>
                         </div>
                     </div>
                     <div class="col">
                         <div class="box shadow">
                             <h6>Mínimo de acidentes BR</h6>
-                            <h1>{{ $totalAcidentesPorAno->min() }}</h1>
+                            <h1>{{ $estatisticasTotalAcidentesPorAno['minimo'] }}</h1>
                         </div>
                     </div>
                     <div class="col">
                         <div class="box shadow">
                             <h6>Máximo de acidentes BR</h6>
-                            <h1>{{ $totalAcidentesPorAno->max() }}</h1>
+                            <h1>{{ $estatisticasTotalAcidentesPorAno['maximo'] }}</h1>
                         </div>
                     </div>
                 </div>
@@ -110,73 +156,34 @@
                     <div class="col">
                         <div class="box shadow">
                             <h6>Média de acidentes SP</h6>
-                            <h1>{{ $mediaTotalAcidentesPorAnoSp }}</h1>
+                            <h1>{{ $estatisticasTotalAcidentesPorAnoSp['media'] }}</h1>
                         </div>
                     </div>
                     <div class="col">
                         <div class="box shadow">
                             <h6>Moda de acidentes SP</h6>
-                            <h1> - </h1>
+                            <h1>{{ implode(', ', $estatisticasTotalAcidentesPorAnoSp['moda']) }}</h1>
                         </div>
                     </div>
                     <div class="col">
                         <div class="box shadow">
                             <h6>Mediana de acidentes SP</h6>
-                            <h1>{{ $medianaTotalAcidentesPorAnoSp }}</h1>
+                            <h1>{{ $estatisticasTotalAcidentesPorAnoSp['mediana'] }}</h1>
                         </div>
                     </div>
                     <div class="col">
                         <div class="box shadow">
                             <h6>Mínimo de acidentes SP</h6>
-                            <h1>{{ $totalAcidentesPorAnoSp->min() }}</h1>
+                            <h1>{{ $estatisticasTotalAcidentesPorAnoSp['minimo'] }}</h1>
                         </div>
                     </div>
                     <div class="col">
                         <div class="box shadow">
                             <h6>Máximo de acidentes SP</h6>
-                            <h1>{{ $totalAcidentesPorAnoSp->max() }}</h1>
+                            <h1>{{ $estatisticasTotalAcidentesPorAnoSp['maximo'] }}</h1>
                         </div>
                     </div>
                 </div>
-
-                {{-- <div class="row mt-4 mb-5">
-                    <div class="col-md-6">
-                        <div class="row sparkboxes mt-4">
-                            <div class="col-md-6">
-                                <div class="box box1">
-                                    <div id="spark1"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="box box2">
-                                    <div id="spark2"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row sparkboxes mt-3">
-                            <div class="col-md-6">
-                                <div class="box box3">
-                                    <div id="spark3"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="box box4">
-                                    <div id="spark4"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                    </div>
-                </div>
-
-                <div class="row mt-4 mb-5">
-                    <div class="col-md-5">
-                        <div class="box shadow">
-                            <div id="radialBarBottom"></div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -194,8 +201,10 @@
 
         const boxPlotAcidentesPorAnoBr = {!! json_encode($boxPlotAcidentesPorAnoBr) !!}
         const boxPlotAcidentesPorAnoSP = {!! json_encode($boxPlotAcidentesPorAnoSP) !!}
+        const mortesTotalBox = {!! json_encode($mortesTotalBox) !!}
 
         const totalAcidentesPorOperacao = {!! json_encode($totalAcidentesPorOperacaoLimit) !!}
+        const totalAcidentesPorNivelDano = {!! json_encode($totalAcidentesPorNivelDano) !!}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
