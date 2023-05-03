@@ -2,14 +2,14 @@
 
 window.Apex = {
     dataLabels: {
-        enabled: false,
+        // enabled: false,
     },
 };
 
 var optionsBar = {
     chart: {
         type: "bar",
-        height: 300,
+        height: 450,
         width: "100%",
         foreColor: "#999",
     },
@@ -106,7 +106,7 @@ chartBar.render();
 var optionsOperacaoBar = {
     chart: {
         type: "bar",
-        height: 300,
+        height: 450,
         width: "100%",
         foreColor: "#999",
     },
@@ -212,7 +212,7 @@ chartBar.render();
 var optionsNivelDanoBar = {
     chart: {
         type: "bar",
-        height: 300,
+        height: 450,
         width: "100%",
         foreColor: "#999",
     },
@@ -233,7 +233,7 @@ var optionsNivelDanoBar = {
             ),
         },
         {
-            name: "Total de mortes",
+            name: "Total de mortas",
             data: Object.values(totalAcidentesPorNivelDano).map(
                 (item) => item.total_mortes
             ),
@@ -297,7 +297,7 @@ var optionsNivelDanoBar = {
         offsetY: -36,
     },
     title: {
-        text: "Qual operação existe mais acidentes",
+        text: "Nível do dano aeronave, com a quantidade de mortos",
         align: "left",
     },
     subtitle: {
@@ -428,7 +428,7 @@ var optionsBoxPlotBR = {
         height: 350,
     },
     title: {
-        text: "Acidentes por ano BR",
+        text: "BoxPlot de Acidentes por ano BR",
         align: "left",
     },
     plotOptions: {
@@ -464,7 +464,7 @@ var optionsBoxPlotSp = {
         height: 350,
     },
     title: {
-        text: "Acidentes por ano SP",
+        text: "BoxPlot de Acidentes por ano SP",
         align: "left",
     },
     plotOptions: {
@@ -500,7 +500,7 @@ var optionsBoxPlotMortes = {
         height: 350,
     },
     title: {
-        text: "Mortes por Acidente",
+        text: "BoxPlot de Fatalidades por acidente",
         align: "left",
     },
     plotOptions: {
@@ -522,7 +522,7 @@ chartMortesBar.render();
 var optionsAcidentesBrasil = {
     chart: {
         type: "line",
-        height: 250,
+        height: 350,
         width: "100%",
         foreColor: "#999",
         toolbar: {
@@ -582,7 +582,7 @@ chartAcidenteBrasil.render();
 var optionsAcidentesSp = {
     chart: {
         type: "line",
-        height: 250,
+        height: 350,
         width: "100%",
         foreColor: "#999",
         toolbar: {
@@ -750,42 +750,83 @@ var optionsCircle1122 = {
 // );
 // chartCircle1.render();
 
-var optionsCircle4 = {
-    chart: {
-        height: 314,
-        type: "radialBar",
-    },
-    colors: ["#775DD0", "#00C8E1", "#FFB900"],
-    labels: ["q4"],
-    series: [71, 63, 77],
-    labels: ["June", "May", "April"],
-    theme: {
-        monochrome: {
-            enabled: false,
+// var optionsCircle4 = {
+//     chart: {
+//         height: 314,
+//         type: "radialBar",
+//     },
+//     colors: ["#775DD0", "#00C8E1", "#FFB900"],
+//     labels: ["q4"],
+//     series: [71, 63, 77],
+//     labels: ["June", "May", "April"],
+//     theme: {
+//         monochrome: {
+//             enabled: false,
+//         },
+//     },
+//     plotOptions: {
+//         radialBar: {
+//             offsetY: -30,
+//         },
+//     },
+//     legend: {
+//         show: true,
+//         position: "left",
+//         containerMargin: {
+//             right: 0,
+//         },
+//     },
+//     title: {
+//         text: "Growth",
+//     },
+// };
+
+// // var chartCircle4 = new ApexCharts(
+// //     document.querySelector("#radialBarBottom"),
+// //     optionsCircle4
+// // );
+// // chartCircle4.render();
+
+var optionsUF = {
+    series: [
+        {
+            data: totalAcidentesEstado,
         },
-    },
-    plotOptions: {
-        radialBar: {
-            offsetY: -30,
-        },
-    },
+    ],
     legend: {
         show: true,
-        position: "left",
-        containerMargin: {
-            right: 0,
-        },
+    },
+    chart: {
+        height: 350,
+        type: "treemap",
     },
     title: {
-        text: "Growth",
+        text: "Total de acidentes por Estado",
+    },
+    colors: [
+        "#3B93A5",
+        "#F7B844",
+        "#ADD8C7",
+        "#EC3C65",
+        "#CDD7B6",
+        "#C1F666",
+        "#D43F97",
+        "#1E5D8C",
+        "#421243",
+        "#7F94B0",
+        "#EF6537",
+        "#C0ADDB",
+    ],
+    plotOptions: {
+        treemap: {
+            distributed: true,
+            enableShades: false,
+        },
     },
 };
 
-// var chartCircle4 = new ApexCharts(
-//     document.querySelector("#radialBarBottom"),
-//     optionsCircle4
-// );
-// chartCircle4.render();
+var chartUF = new ApexCharts(document.querySelector("#chart_uf"), optionsUF);
+chartUF.render();
 
 function generateData(baseval, count, yrange) {
     var i = 0;

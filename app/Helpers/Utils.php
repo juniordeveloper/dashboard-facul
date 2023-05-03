@@ -6,6 +6,12 @@ use Illuminate\Support\Facades\Http;
 
 class Utils
 {
+    /**
+     * @param $collection
+     * @param $value
+     * @param $label
+     * @return mixed
+     */
     public static function options($collection, $value, $label)
     {
         return $collection->map(function ($item) use ($value, $label) {
@@ -15,6 +21,12 @@ class Utils
         })->toArray();
     }
 
+    /**
+     * @param $date
+     * @param $formatIn
+     * @param $formatOut
+     * @return mixed
+     */
     public static function formatDate($date, $formatIn = 'd/m/Y', $formatOut = 'Y-m-d')
     {
         if (empty($date)) {
@@ -34,6 +46,12 @@ class Utils
         return '';
     }
 
+    /**
+     * @param $date
+     * @param $formatIn
+     * @param $formatOut
+     * @return mixed
+     */
     public static function formatDateInverse($date, $formatIn = 'd/m/Y', $formatOut = 'd-m-Y')
     {
         if (empty($date)) {
@@ -53,6 +71,11 @@ class Utils
         return '';
     }
 
+    /**
+     * @param $date
+     * @param $formatIn
+     * @return mixed
+     */
     public static function isValidDate($date, $formatIn = 'd/m/Y')
     {
         if (empty($date)) {
@@ -101,11 +124,16 @@ class Utils
         ];
     }
 
+    /**
+     * @param $val
+     * @param $mask
+     * @return mixed
+     */
     public static function mask($val, $mask)
     {
         $maskared = '';
         $k = 0;
-        for ($i = 0; $i <= strlen($mask) - 1; $i++) {
+        for ($i = 0; $i <= strlen($mask) - 1; ++$i) {
             if ($mask[$i] == '#') {
                 if (isset($val[$k])) {
                     $maskared .= $val[$k++];
@@ -123,6 +151,10 @@ class Utils
         return $maskared;
     }
 
+    /**
+     * @param $url_photo
+     * @return mixed
+     */
     public static function getFaceByPhoto($url_photo)
     {
         // if (env('APP_ENV') != 'production') {
@@ -148,11 +180,18 @@ class Utils
         return '';
     }
 
+    /**
+     * @param $value
+     */
     public static function somenteNumeros($value)
     {
         return preg_replace('/[^0-9]/', '', $value);
     }
 
+    /**
+     * @param $topic
+     * @param $message
+     */
     public static function mqtt($topic, $message)
     {
         $post = [
@@ -163,12 +202,21 @@ class Utils
         Http::asForm()->post("http://controlxpress.com:13000/mqtt", $post);
     }
 
+    /**
+     * @param $value
+     * @param $inicio
+     * @param $qtd
+     */
     public static function ofuscaValor($value, $inicio, $qtd)
     {
         $asc = str_repeat('*', $qtd);
         return substr_replace($value, $asc, $inicio, $qtd);
     }
 
+    /**
+     * @param $json
+     * @return mixed
+     */
     public static function prettyPrint($json)
     {
         $result = '';
@@ -178,7 +226,7 @@ class Utils
         $ends_line_level = null;
         $json_length = strlen($json);
 
-        for ($i = 0; $i < $json_length; $i++) {
+        for ($i = 0; $i < $json_length; ++$i) {
             $char = $json[$i];
             $new_line_level = null;
             $post = "";
@@ -226,6 +274,9 @@ class Utils
         return $result;
     }
 
+    /**
+     * @param $url
+     */
     public static function url($url = null)
     {
         if (env('APP_ENV') == 'production') {
@@ -234,6 +285,9 @@ class Utils
         return "//control.sagris.com.br/{$url}";
     }
 
+    /**
+     * @param $arr
+     */
     public static function toObject($arr)
     {
         if (is_array($arr)) {
@@ -244,6 +298,12 @@ class Utils
         return false;
     }
 
+    /**
+     * @param $startTime
+     * @param $endTime
+     * @param $step
+     * @param $isMajorNow
+     */
     public static function selectTimesofDay($startTime = '00:00', $endTime = '23:59', $step = 600, $isMajorNow = false)
     {
         $open_time = strtotime(date("Y-m-d {$startTime}:00"));
@@ -260,6 +320,9 @@ class Utils
         return $output;
     }
 
+    /**
+     * @param $str
+     */
     public static function is_base64($str)
     {
         if (base64_encode(base64_decode($str, true)) === $str) {
@@ -269,6 +332,12 @@ class Utils
         }
     }
 
+    /**
+     * @param $dateIni
+     * @param $dateEnd
+     * @param $returnTime
+     * @return mixed
+     */
     public static function diffInSeconds($dateIni, $dateEnd, $returnTime = true)
     {
         $ini = \Carbon\Carbon::parse($dateIni);
@@ -277,6 +346,9 @@ class Utils
         return $returnTime ? self::secToHR($seconds) : $seconds;
     }
 
+    /**
+     * @param $seconds
+     */
     public static function secToHR($seconds)
     {
         $hours = str_pad(floor($seconds / 3600), 2, 0, STR_PAD_LEFT);
@@ -285,6 +357,10 @@ class Utils
         return "{$hours}:{$minutes}:{$seconds}";
     }
 
+    /**
+     * @param $dataAgendamento
+     * @return mixed
+     */
     public static function clienteOrigemError($dataAgendamento)
     {
         $otherDate = \Carbon\Carbon::parse($dataAgendamento);
@@ -292,6 +368,10 @@ class Utils
         return $otherDate->gte($nowDate);
     }
 
+    /**
+     * @param $config
+     * @param $valueCompare
+     */
     public static function calcMediaColor($config, $valueCompare)
     {
         $valueCompare = (float) $valueCompare;
@@ -310,6 +390,10 @@ class Utils
         return 'red';
     }
 
+    /**
+     * @param $time
+     * @param $timeCompare
+     */
     public static function calcTimeColor($time, $timeCompare)
     {
         if (stripos($timeCompare, ':') === false) {
@@ -323,6 +407,10 @@ class Utils
         return '';
     }
 
+    /**
+     * @param $times
+     * @param $dateTimeCompare
+     */
     public static function calcTimesColor($times, $dateTimeCompare)
     {
         if (stripos($dateTimeCompare, ':') === false) {
@@ -342,12 +430,19 @@ class Utils
         return '';
     }
 
+    /**
+     * @param $time
+     */
     public static function timeToMinutes($time)
     {
         $time = explode(':', $time);
         return ($time[0] * 60) + ($time[1]) + (($time[2] ?? 0) / 60);
     }
 
+    /**
+     * @param $n
+     * @param $tolerance
+     */
     public static function float2rat($n, $tolerance = 1.e-6)
     {
         $h1 = 1;
@@ -371,6 +466,10 @@ class Utils
         return "$h1/$k1";
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public static function boxplotData($data)
     {
         sort($data);
@@ -386,6 +485,10 @@ class Utils
         return $boxplot_data;
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public static function boxplotDataWithOutliers($data)
     {
         sort($data);
@@ -410,6 +513,38 @@ class Utils
         return $boxplot_data;
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public static function boxplotDataWithFilteredOutliers($data)
+    {
+        sort($data);
+        $min = $data[0];
+        $max = $data[count($data) - 1];
+        $median = self::median($data);
+        $q1 = self::quartile($data, 1);
+        $q3 = self::quartile($data, 3);
+        $iqr = $q3 - $q1;
+        $lower_fence = $q1 - 1.5 * $iqr;
+        $upper_fence = $q3 + 1.5 * $iqr;
+        $outliers = [];
+        foreach ($data as $value) {
+            if ($value < $q1 || $value > $q3) {
+                $outliers[] = $value;
+            }
+        }
+        $outliers = array_filter($outliers, function ($value) use ($q1, $q3) {
+            return ($value < $q1 * 0.75 || $value > $q3 * 1.25);
+        });
+        $boxplot_data = [$min, $q1, $median, $q3, $max, $outliers];
+        return $boxplot_data;
+    }
+
+    /**
+     * @param $lista
+     * @return mixed
+     */
     public static function calcularEstatisticas($lista)
     {
         // Média
@@ -439,6 +574,10 @@ class Utils
         return $listaEstatistica;
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     */
     public static function median($data)
     {
         $n = count($data);
@@ -450,6 +589,11 @@ class Utils
         }
     }
 
+    /**
+     * @param $data
+     * @param $q
+     * @return mixed
+     */
     public static function quartile($data, $q)
     {
         $n = count($data);

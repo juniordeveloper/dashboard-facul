@@ -3,17 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Utils;
-use App\Services\Graficos\AcidentesMortesTipoAeronaveService;
-use App\Services\Graficos\AcidentesPorTimeAeronaveService;
+use Illuminate\Support\Facades\Cache;
+use App\Services\Graficos\TotalAcidentesPorUFService;
 use App\Services\Graficos\TotalAcidentesPorAnoService;
 use App\Services\Graficos\TotalAcidentesPorAnoSpService;
 use App\Services\Graficos\TotalAcidentesPorFatorService;
-use App\Services\Graficos\TotalAcidentesPorNivelDanoService;
+use App\Services\Graficos\AcidentesPorTimeAeronaveService;
 use App\Services\Graficos\TotalAcidentesPorOperacaoService;
-use Illuminate\Support\Facades\Cache;
+use App\Services\Graficos\TotalAcidentesPorNivelDanoService;
+use App\Services\Graficos\AcidentesMortesTipoAeronaveService;
 
 class DashboardController extends Controller
 {
+    /**
+     * @param AcidentesPorTimeAeronaveService $acidentesPorTimeAeronaveService
+     * @param AcidentesMortesTipoAeronaveService $acidentesMortesTipoAeronaveService
+     * @param TotalAcidentesPorAnoSpService $totalAcidentesPorAnoSpService
+     * @param TotalAcidentesPorFatorService $totalAcidentesPorFatorService
+     * @param TotalAcidentesPorOperacaoService $totalAcidentesPorOperacaoService
+     * @param TotalAcidentesPorNivelDanoService $totalAcidentesPorNivelDanoService
+     * @param TotalAcidentesPorAnoService $totalAcidentesPorAnoService
+     */
     public function index(
         AcidentesPorTimeAeronaveService $acidentesPorTimeAeronaveService,
         AcidentesMortesTipoAeronaveService $acidentesMortesTipoAeronaveService,
@@ -21,24 +31,20 @@ class DashboardController extends Controller
         TotalAcidentesPorFatorService $totalAcidentesPorFatorService,
         TotalAcidentesPorOperacaoService $totalAcidentesPorOperacaoService,
         TotalAcidentesPorNivelDanoService $totalAcidentesPorNivelDanoService,
+        TotalAcidentesPorUFService $totalAcidentesPorUFService,
         TotalAcidentesPorAnoService $totalAcidentesPorAnoService
     ) {
         $rows = $this->loadCSV(resource_path('cenipa.csv'));
+        $totalAcidentesEstado = $totalAcidentesPorUFService->handler();
+
         $mortesTotal = $rows->pluck('total-de-fatalidades-no-acidente')->filter(fn($x) => $x > 0)->toArray();
         $mortesTotalBox = Utils::boxplotData($mortesTotal);
         $mortesEstatistica = Utils::calcularEstatisticas($mortesTotal);
-        // dd($mortesTotalBox, $mortesEstatistica);
-        // dd($rows->pluck('tipo-de-ocorrencia')->unique()->toArray());
-        // dd($rows[0]);
 
         $totalAcidentesPorFator = $totalAcidentesPorFatorService->handler();
         $totalAcidentesPorNivelDano = $totalAcidentesPorNivelDanoService->handler();
-        // dd($totalAcidentesPorNivelDano->toArray());
         $totalAcidentesPorOperacao = $totalAcidentesPorOperacaoService->handler();
         $totalAcidentesPorOperacaoLimit = $totalAcidentesPorOperacao->slice(0, 10);
-
-        // dd($totalAcidentesPorOperacao->toArray(), $totalAcidentesPorOperacao->slice(0, 10)->toArray());
-        // dd($rows->pluck('tipo-de-ocorrencia')->unique()->toArray());
 
         $acidentesPorTipo = $acidentesPorTimeAeronaveService->handler();
 
@@ -68,10 +74,15 @@ class DashboardController extends Controller
             'boxPlotAcidentesPorAnoBr',
             'boxPlotAcidentesPorAnoSP',
             'mortesEstatistica',
+            'totalAcidentesEstado',
             'mortesTotalBox'
         ));
     }
 
+    /**
+     * @param $csvFile
+     * @return mixed
+     */
     private function loadCSV($csvFile)
     {
         if (Cache::has('dados_cenipa')) {

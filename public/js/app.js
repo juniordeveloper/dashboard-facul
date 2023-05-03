@@ -7,22 +7,17 @@
   \*****************************/
 /***/ (() => {
 
-var _optionsCircle;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 // require("./bootstrap");
 
 window.Apex = {
   dataLabels: {
-    enabled: false
+    // enabled: false,
   }
 };
 var optionsBar = {
   chart: {
     type: "bar",
-    height: 300,
+    height: 450,
     width: "100%",
     foreColor: "#999"
   },
@@ -114,7 +109,7 @@ chartBar.render();
 var optionsOperacaoBar = {
   chart: {
     type: "bar",
-    height: 300,
+    height: 450,
     width: "100%",
     foreColor: "#999"
   },
@@ -212,7 +207,7 @@ chartBar.render();
 var optionsNivelDanoBar = {
   chart: {
     type: "bar",
-    height: 300,
+    height: 450,
     width: "100%",
     foreColor: "#999"
   },
@@ -231,7 +226,7 @@ var optionsNivelDanoBar = {
       return item.total_geral;
     })
   }, {
-    name: "Total de mortes",
+    name: "Total de mortas",
     data: Object.values(totalAcidentesPorNivelDano).map(function (item) {
       return item.total_mortes;
     })
@@ -294,7 +289,7 @@ var optionsNivelDanoBar = {
     offsetY: -36
   },
   title: {
-    text: "Qual operação existe mais acidentes",
+    text: "Nível do dano aeronave, com a quantidade de mortos",
     align: "left"
   },
   subtitle: {
@@ -417,7 +412,7 @@ var optionsBoxPlotBR = {
     height: 350
   },
   title: {
-    text: "Acidentes por ano BR",
+    text: "BoxPlot de Acidentes por ano BR",
     align: "left"
   },
   plotOptions: {
@@ -444,7 +439,7 @@ var optionsBoxPlotSp = {
     height: 350
   },
   title: {
-    text: "Acidentes por ano SP",
+    text: "BoxPlot de Acidentes por ano SP",
     align: "left"
   },
   plotOptions: {
@@ -471,7 +466,7 @@ var optionsBoxPlotMortes = {
     height: 350
   },
   title: {
-    text: "Mortes por Acidente",
+    text: "BoxPlot de Fatalidades por acidente",
     align: "left"
   },
   plotOptions: {
@@ -488,7 +483,7 @@ chartMortesBar.render();
 var optionsAcidentesBrasil = {
   chart: {
     type: "line",
-    height: 250,
+    height: 350,
     width: "100%",
     foreColor: "#999",
     toolbar: {
@@ -541,7 +536,7 @@ chartAcidenteBrasil.render();
 var optionsAcidentesSp = {
   chart: {
     type: "line",
-    height: 250,
+    height: 350,
     width: "100%",
     foreColor: "#999",
     toolbar: {
@@ -699,38 +694,67 @@ var optionsCircle1122 = {
 // );
 // chartCircle1.render();
 
-var optionsCircle4 = (_optionsCircle = {
-  chart: {
-    height: 314,
-    type: "radialBar"
+// var optionsCircle4 = {
+//     chart: {
+//         height: 314,
+//         type: "radialBar",
+//     },
+//     colors: ["#775DD0", "#00C8E1", "#FFB900"],
+//     labels: ["q4"],
+//     series: [71, 63, 77],
+//     labels: ["June", "May", "April"],
+//     theme: {
+//         monochrome: {
+//             enabled: false,
+//         },
+//     },
+//     plotOptions: {
+//         radialBar: {
+//             offsetY: -30,
+//         },
+//     },
+//     legend: {
+//         show: true,
+//         position: "left",
+//         containerMargin: {
+//             right: 0,
+//         },
+//     },
+//     title: {
+//         text: "Growth",
+//     },
+// };
+
+// // var chartCircle4 = new ApexCharts(
+// //     document.querySelector("#radialBarBottom"),
+// //     optionsCircle4
+// // );
+// // chartCircle4.render();
+
+var optionsUF = {
+  series: [{
+    data: totalAcidentesEstado
+  }],
+  legend: {
+    show: true
   },
-  colors: ["#775DD0", "#00C8E1", "#FFB900"],
-  labels: ["q4"],
-  series: [71, 63, 77]
-}, _defineProperty(_optionsCircle, "labels", ["June", "May", "April"]), _defineProperty(_optionsCircle, "theme", {
-  monochrome: {
-    enabled: false
+  chart: {
+    height: 350,
+    type: "treemap"
+  },
+  title: {
+    text: "Total de acidentes por Estado"
+  },
+  colors: ["#3B93A5", "#F7B844", "#ADD8C7", "#EC3C65", "#CDD7B6", "#C1F666", "#D43F97", "#1E5D8C", "#421243", "#7F94B0", "#EF6537", "#C0ADDB"],
+  plotOptions: {
+    treemap: {
+      distributed: true,
+      enableShades: false
+    }
   }
-}), _defineProperty(_optionsCircle, "plotOptions", {
-  radialBar: {
-    offsetY: -30
-  }
-}), _defineProperty(_optionsCircle, "legend", {
-  show: true,
-  position: "left",
-  containerMargin: {
-    right: 0
-  }
-}), _defineProperty(_optionsCircle, "title", {
-  text: "Growth"
-}), _optionsCircle);
-
-// var chartCircle4 = new ApexCharts(
-//     document.querySelector("#radialBarBottom"),
-//     optionsCircle4
-// );
-// chartCircle4.render();
-
+};
+var chartUF = new ApexCharts(document.querySelector("#chart_uf"), optionsUF);
+chartUF.render();
 function generateData(baseval, count, yrange) {
   var i = 0;
   var series = [];

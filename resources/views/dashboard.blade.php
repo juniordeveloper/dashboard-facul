@@ -14,7 +14,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="javascript:void(0);">ACIDENTES AÉREOS - RETROSPECTIVO ENTRE 2010 E 2021</a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                {{-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -25,7 +25,7 @@
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>
-                </div>
+                </div> --}}
             </div>
         </nav>
     </header>
@@ -82,6 +82,14 @@
                     <div class="col-md-12">
                         <div class="box shadow">
                             <div id="bar_nivel_dano"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4 mb-4">
+                    <div class="col-md-12">
+                        <div class="box shadow">
+                            <div id="chart_uf"></div>
                         </div>
                     </div>
                 </div>
@@ -205,6 +213,7 @@
 
         const totalAcidentesPorOperacao = {!! json_encode($totalAcidentesPorOperacaoLimit) !!}
         const totalAcidentesPorNivelDano = {!! json_encode($totalAcidentesPorNivelDano) !!}
+        const totalAcidentesEstado = {!! json_encode($totalAcidentesEstado) !!}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
