@@ -1,0 +1,26 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+    background-color: #f5f7ff;
+    font-family: "Nunito", sans-serif;
+}
+
+#wrapper {
+    margin-top: 60px;
+    .card {
+        box-shadow: none;
+        transition: background 0.25s ease;
+        border: none;
+        border-radius: 15px;
+        .card-title {
+            color: #010101;
+            margin-bottom: 1.2rem;
+            text-transform: capitalize;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+    }
+}

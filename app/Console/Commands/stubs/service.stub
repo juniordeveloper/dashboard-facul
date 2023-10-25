@@ -1,0 +1,17 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespace }}\Contracts\{{ class }}Interface;
+use Illuminate\Support\Facades\Cache;
+
+class {{ class }} implements {{ class }}Interface
+{
+    public function __construct()
+    {}
+
+    public function handler()
+    {
+        return true;
+    }
+}

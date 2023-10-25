@@ -1,0 +1,23 @@
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #333;
+  background-color: #f5f7ff;
+  font-family: "Nunito", sans-serif;
+}
+
+#wrapper {
+  margin-top: 60px;
+}
+#wrapper .card {
+  box-shadow: none;
+  transition: background 0.25s ease;
+  border: none;
+  border-radius: 15px;
+}
+#wrapper .card .card-title {
+  color: #010101;
+  margin-bottom: 1.2rem;
+  text-transform: capitalize;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
