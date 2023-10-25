@@ -16,9 +16,16 @@ var optionsBar = {
     },
     plotOptions: {
         bar: {
+            horizontal: false,
+            borderRadius: 10,
             dataLabels: {
-                enabled: true,
-                position: "top",
+                total: {
+                    enabled: false,
+                    style: {
+                        fontSize: "13px",
+                        fontWeight: 900,
+                    },
+                },
             },
         },
     },
@@ -44,8 +51,9 @@ var optionsBar = {
     },
     dataLabels: {
         enabled: true,
-        formatter: function (val) {
-            return val;
+        formatter: function (val, opt) {
+            console.log(opt, val);
+            return opt.w.globals.seriesNames[opt.seriesIndex] + ":  " + val;
         },
         style: {
             fontSize: "12px",

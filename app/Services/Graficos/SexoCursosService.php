@@ -51,6 +51,9 @@ class SexoCursosService implements SexoCursosServiceInterface
                 $dataSexo['series'][$kk]['data'][] = $vv;
             }
         }
+        $dataSexo['label'] = array_map(function ($v) {
+            return explode(' ', $v);
+        }, $dataSexo['label']);
         return $dataSexo;
     }
 }
