@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 use App\Services\Graficos\SexoCursosService;
+use App\Services\Graficos\InfraestruturaService;
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,8 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(
-        SexoCursosService $sexoCursosService
+        SexoCursosService $sexoCursosService,
+        InfraestruturaService $infraestruturaService
     ) {
         $this->setDataCacheJson();
 
@@ -30,6 +32,7 @@ class DashboardController extends Controller
             return stripos($i->pergunta, 'ACESSIBILIDADE') !== false;
         });
         $dataSexo = $sexoCursosService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataInfraestrutura = $infraestruturaService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
 
         return view(
             'dashboard',
@@ -37,7 +40,8 @@ class DashboardController extends Controller
                 'dadoAluno',
                 'dadoDocente',
                 'dadoFuncionario',
-                'dataSexo'
+                'dataSexo',
+                'dataInfraestrutura',
             )
         );
     }

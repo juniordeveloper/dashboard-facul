@@ -118,38 +118,16 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-12 mb-3">
                         <!-- Reminders -->
-                        <div class="reminders">
+                        <div class="orders">
                             <div class="header">
-                                <i class='bx bx-note'></i>
-                                <h3>Titulo Box</h3>
+                                <i class='bx bx-receipt'></i>
+                                <h3>Generos por Curso</h3>
                                 <i class='bx bx-filter'></i>
-                                <i class='bx bx-plus'></i>
+                                <i class='bx bx-search'></i>
                             </div>
-                            <ul class="task-list">
-                                <li class="completed">
-                                    <div class="task-title">
-                                        <i class='bx bx-check-circle'></i>
-                                        <p>Start Our Meeting</p>
-                                    </div>
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                                <li class="completed">
-                                    <div class="task-title">
-                                        <i class='bx bx-check-circle'></i>
-                                        <p>Analyse Our Site</p>
-                                    </div>
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                                <li class="not-completed">
-                                    <div class="task-title">
-                                        <i class='bx bx-x-circle'></i>
-                                        <p>Play Footbal</p>
-                                    </div>
-                                    <i class='bx bx-dots-vertical-rounded'></i>
-                                </li>
-                            </ul>
+                            <div id="barV2"></div>
                         </div>
                     </div>
 
@@ -166,6 +144,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         var dataSexo = {{ Illuminate\Support\Js::from($dataSexo) }};
+        var dataInfraestrutura = {{ Illuminate\Support\Js::from($dataInfraestrutura) }};
     </script>
     <script src="/js/app.js"></script>
 </body>
