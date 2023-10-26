@@ -20,35 +20,38 @@ class InfraestruturaService implements InfraestruturaServiceInterface
         // dd($dadoDocente->toArray(), $dadoFuncionario->toArray());
         $perguntaSexo = $dadoAlunoGeral->filter(function ($i) {
             return $i->indicador == 'Eixo: 5';
-        });
+        })
+        ->filter(function ($v) {
+            return in_array($v->pergunta, ['Secretaria acadêmica', 'Espaços de convivência', 'Limpeza/Conservação', 'Iluminação/ Ventilação', 'Mobiliário e Equipamentos']);
+        })
+        ->sortBy('pergunta');
         // dd($perguntaSexo->toArray());
         $dataSexo = [];
         foreach ($perguntaSexo as $v) {
-            if (!in_array($v->pergunta, ['Secretaria acadêmica', 'Espaços de convivência', 'Limpeza/Conservação', 'Iluminação/ Ventilação', 'Mobiliário e Equipamentos'])) {
-                continue;
-            }
             $titulo = "{$v->pergunta}";
             $slug = \Str::slug($titulo);
             $dataSexo['labels'][$slug] = $titulo;
-            $dataSexo['dados'][$slug]['name'] = $titulo;
+
             foreach ($v->resposta as $kk => $vv) {
-                $dataSexo['dados'][$slug]['series'][$kk]['name'] = $vv;
+                $dataSexo['series'][$kk]['name'] = $vv;
             }
+
             foreach ($v->totais as $kk => $vv) {
-                if (!isset($dataSexo['dados'][$slug]['series'][$kk]['data'])) {
-                    $dataSexo['dados'][$slug]['series'][$kk]['data'] = 0;
+                if(!isset($dataSexo['series'][$kk]['data'][$slug])) {
+                    $dataSexo['series'][$kk]['data'][$slug] = 0;
                 }
-                $dataSexo['dados'][$slug]['series'][$kk]['data'] += $vv;
+                $dataSexo['series'][$kk]['data'][$slug] += $vv;
             }
-            // $dataSexo[$slug][$slug]
         }
-        dd($dataSexo);
         $dataSexo['labels'] = array_values($dataSexo['labels']);
-        $dataSexo['dados'] = array_values($dataSexo['dados']);
-        dd($dataSexo);
-        // $dataSexo['label'] = array_map(function ($v) {
-        //     return explode(' ', $v);
-        // }, $dataSexo['label']);
+        $dataSexo['series'] = array_map(function($v){
+            $v['data'] = array_values($v['data']);
+            return $v;
+        }, $dataSexo['series']);
+        // dd($dataSexo);
+        $dataSexo['labels'] = array_map(function ($v) {
+            return explode(' ', $v);
+        }, $dataSexo['labels']);
         return $dataSexo;
     }
 }

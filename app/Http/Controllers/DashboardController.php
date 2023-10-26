@@ -32,6 +32,7 @@ class DashboardController extends Controller
             return stripos($i->pergunta, 'ACESSIBILIDADE') !== false;
         });
         $dataSexo = $sexoCursosService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        // dump($dataSexo);
         $dataInfraestrutura = $infraestruturaService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
 
         return view(

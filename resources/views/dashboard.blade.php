@@ -123,7 +123,7 @@
                         <div class="orders">
                             <div class="header">
                                 <i class='bx bx-receipt'></i>
-                                <h3>Generos por Curso</h3>
+                                <h3>Infraestrutura</h3>
                                 <i class='bx bx-filter'></i>
                                 <i class='bx bx-search'></i>
                             </div>

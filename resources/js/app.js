@@ -107,12 +107,12 @@ var optionsBarV2 = {
         height: 450,
         width: "100%",
         foreColor: "#999",
-        stacked: true,
+        // stacked: true,
     },
     plotOptions: {
         bar: {
             horizontal: false,
-            borderRadius: 10,
+            // borderRadius: 10,
             dataLabels: {
                 total: {
                     enabled: false,
@@ -124,8 +124,8 @@ var optionsBarV2 = {
             },
         },
     },
-    colors: ["#1976D2", "#FECDD3"],
-    series: dataInfraestrutura.dados,
+    // colors: ["#1976D2", "#FECDD3"],
+    series: dataInfraestrutura.series,
     labels: dataInfraestrutura.labels,
     xaxis: {
         axisBorder: {
@@ -181,7 +181,7 @@ var optionsBarV2 = {
         offsetY: -36,
     },
     title: {
-        text: "Total de pessoas por curso, docentes e funcionarios",
+        text: "Avaliação dos alunos a algumas areas da FATEC",
         align: "left",
     },
     subtitle: {
