@@ -49,6 +49,10 @@ body{
     overflow-x: hidden;
 }
 
+.apexcharts-menu{
+    min-width: 112px !important;
+}
+
 .sidebar{
     position: fixed;
     top: 0;

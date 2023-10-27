@@ -105,34 +105,89 @@
             </ul>
 
             <div class="row mt-4">
-                <div class="bottom-data">
-                    <div class="col-md-12 mb-3">
+                <div class="col-md-6 mb-3">
+                    <div class="bottom-data">
                         <div class="orders">
                             <div class="header">
                                 <i class='bx bx-receipt'></i>
                                 <h3>Generos por Curso</h3>
-                                <i class='bx bx-filter'></i>
-                                <i class='bx bx-search'></i>
                             </div>
                             <div id="bar"></div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-12 mb-3">
-                        <!-- Reminders -->
+                <div class="col-md-6 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Comparação Notas Aluno X Docentes sobre a FETEPS</h3>
+                            </div>
+                            <div id="barV3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Idade por Curso</h3>
+                            </div>
+                            <div id="barV4"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Qualidade da Fatec</h3>
+                            </div>
+                            <div id="barV5"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Avaliação do Corpo Docente</h3>
+                            </div>
+                            <div id="barV6"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Avaliação da Didatica Corpo Docente</h3>
+                            </div>
+                            <div id="barV7"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
                         <div class="orders">
                             <div class="header">
                                 <i class='bx bx-receipt'></i>
                                 <h3>Infraestrutura</h3>
-                                <i class='bx bx-filter'></i>
-                                <i class='bx bx-search'></i>
+                                {{-- <i class='bx bx-filter'></i>
+                                <i class='bx bx-search'></i> --}}
                             </div>
                             <div id="barV2"></div>
                         </div>
                     </div>
-
-                    <!-- End of Reminders-->
-
                 </div>
             </div>
 
@@ -145,6 +200,11 @@
     <script>
         var dataSexo = {{ Illuminate\Support\Js::from($dataSexo) }};
         var dataInfraestrutura = {{ Illuminate\Support\Js::from($dataInfraestrutura) }};
+        var dataFeteps = {{ Illuminate\Support\Js::from($dataFeteps) }};
+        var dataIdade = {{ Illuminate\Support\Js::from($dataIdade) }};
+        var dataQualidadeFatec = {{ Illuminate\Support\Js::from($dataQualidadeFatec) }};
+        var dataCorpoDocenteFatec = {{ Illuminate\Support\Js::from($dataCorpoDocenteFatec) }};
+        var dataDidaticaDocente = {{ Illuminate\Support\Js::from($dataDidaticaDocente) }};
     </script>
     <script src="/js/app.js"></script>
 </body>

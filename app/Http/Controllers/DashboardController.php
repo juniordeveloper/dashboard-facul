@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
+use App\Services\Graficos\IdadeService;
+use App\Services\Graficos\FetepsService;
 use App\Services\Graficos\SexoCursosService;
 use App\Services\Graficos\InfraestruturaService;
+use App\Services\Graficos\QualidadeFatecService;
+use App\Services\Graficos\CorpoDocenteFatecService;
+use App\Services\Graficos\DidaticaDocenteFatecService;
 
 class DashboardController extends Controller
 {
@@ -16,6 +21,11 @@ class DashboardController extends Controller
      */
     public function index(
         SexoCursosService $sexoCursosService,
+        FetepsService $fetepsService,
+        IdadeService $idadeService,
+        QualidadeFatecService $qualidadeFatecService,
+        CorpoDocenteFatecService $corpoDocenteFatecService,
+        DidaticaDocenteFatecService $didaticaDocenteFatecService,
         InfraestruturaService $infraestruturaService
     ) {
         $this->setDataCacheJson();
@@ -34,6 +44,11 @@ class DashboardController extends Controller
         $dataSexo = $sexoCursosService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         // dump($dataSexo);
         $dataInfraestrutura = $infraestruturaService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataFeteps = $fetepsService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataIdade = $idadeService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataQualidadeFatec = $qualidadeFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataCorpoDocenteFatec = $corpoDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataDidaticaDocente = $didaticaDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
 
         return view(
             'dashboard',
@@ -43,6 +58,11 @@ class DashboardController extends Controller
                 'dadoFuncionario',
                 'dataSexo',
                 'dataInfraestrutura',
+                'dataFeteps',
+                'dataIdade',
+                'dataQualidadeFatec',
+                'dataCorpoDocenteFatec',
+                'dataDidaticaDocente',
             )
         );
     }

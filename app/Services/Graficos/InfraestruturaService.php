@@ -21,11 +21,11 @@ class InfraestruturaService implements InfraestruturaServiceInterface
         $perguntaSexo = $dadoAlunoGeral->filter(function ($i) {
             return $i->indicador == 'Eixo: 5';
         })
-        ->filter(function ($v) {
-            return in_array($v->pergunta, ['Secretaria acadêmica', 'Espaços de convivência', 'Limpeza/Conservação', 'Iluminação/ Ventilação', 'Mobiliário e Equipamentos']);
-        })
-        ->sortBy('pergunta');
-        // dd($perguntaSexo->toArray());
+            ->filter(function ($v) {
+                return in_array($v->pergunta, ['Secretaria acadêmica', 'Espaços de convivência', 'Limpeza/Conservação', 'Iluminação/ Ventilação', 'Mobiliário e Equipamentos']);
+            })
+            ->sortBy('pergunta');
+
         $dataSexo = [];
         foreach ($perguntaSexo as $v) {
             $titulo = "{$v->pergunta}";
@@ -37,21 +37,22 @@ class InfraestruturaService implements InfraestruturaServiceInterface
             }
 
             foreach ($v->totais as $kk => $vv) {
-                if(!isset($dataSexo['series'][$kk]['data'][$slug])) {
+                if (!isset($dataSexo['series'][$kk]['data'][$slug])) {
                     $dataSexo['series'][$kk]['data'][$slug] = 0;
                 }
                 $dataSexo['series'][$kk]['data'][$slug] += $vv;
             }
         }
         $dataSexo['labels'] = array_values($dataSexo['labels']);
-        $dataSexo['series'] = array_map(function($v){
+        $dataSexo['series'] = array_map(function ($v) {
             $v['data'] = array_values($v['data']);
             return $v;
         }, $dataSexo['series']);
-        // dd($dataSexo);
+
         $dataSexo['labels'] = array_map(function ($v) {
             return explode(' ', $v);
         }, $dataSexo['labels']);
+
         return $dataSexo;
     }
 }
