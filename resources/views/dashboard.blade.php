@@ -224,6 +224,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Acessibilidade</h3>
+                                {{-- <i class='bx bx-filter'></i>
+                                <i class='bx bx-search'></i> --}}
+                            </div>
+
+                            <div id="barV9"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -231,7 +245,7 @@
     </div>
 
     <script src="/js/teste.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="/js/apexcharts.js"></script>
     <script>
         var dataSexo = {{ Illuminate\Support\Js::from($dataSexo) }};
         var dataInfraestrutura = {{ Illuminate\Support\Js::from($dataInfraestrutura) }};
@@ -241,6 +255,7 @@
         var dataCorpoDocenteFatec = {{ Illuminate\Support\Js::from($dataCorpoDocenteFatec) }};
         var dataDidaticaDocente = {{ Illuminate\Support\Js::from($dataDidaticaDocente) }};
         var dataEspacoConveniencia = {{ Illuminate\Support\Js::from($dataEspacoConveniencia) }};
+        var dataAcessibilidadeFatec = {{ Illuminate\Support\Js::from($dataAcessibilidadeFatec) }};
     </script>
     <script src="/js/app.js"></script>
 </body>

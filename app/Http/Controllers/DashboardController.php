@@ -50,6 +50,7 @@ class DashboardController extends Controller
         $dataIdade = $idadeService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataQualidadeFatec = $qualidadeFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataCorpoDocenteFatec = $corpoDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataAcessibilidadeFatec = $corpoDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario, 100);
         $dataDidaticaDocente = $didaticaDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataTotaisRespostas = $totaisRespostasService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         // dd($dataTotaisRespostas);
@@ -69,6 +70,7 @@ class DashboardController extends Controller
                 'dataCorpoDocenteFatec',
                 'dataDidaticaDocente',
                 'dataTotaisRespostas',
+                'dataAcessibilidadeFatec'
             )
         );
     }

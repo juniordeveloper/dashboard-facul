@@ -1,12 +1,16 @@
 require("./bootstrap");
 
 window.Apex = {
+    // chart: {
+    //     fontFamily:'Inter',
+    //     fontWeight: '300'
+    // },
     dataLabels: {
         // enabled: false,
     },
 };
 
-function graficoPadraoV2(data, elemento, titulo, stacked, percentagem) {
+function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
     // let colores = [
     //     "#e60049",
     //     "#0bb4ff",
@@ -30,14 +34,14 @@ function graficoPadraoV2(data, elemento, titulo, stacked, percentagem) {
     var optionsBarV6 = {
         chart: {
             type: "bar",
-            height: 450,
+            height: horizontal === false ? 450 : 'auto',
             width: "100%",
             foreColor: "#000",
             stacked: stacked,
         },
         plotOptions: {
             bar: {
-                horizontal: false,
+                horizontal: horizontal,
                 // borderRadius: 10,
                 dataLabels: {
                     total: {
@@ -126,29 +130,33 @@ function graficoPadraoV2(data, elemento, titulo, stacked, percentagem) {
     chartBar.render();
 }
 
-graficoPadraoV2(dataIdade, "barV4", "Idade dos alunos por Curso", false);
+graficoPadraoV2(dataIdade, "barV4", "Idade dos alunos por Curso", false, true);
 graficoPadraoV2(
     dataCorpoDocenteFatec,
     "barV6",
     "Avaliação ao corpo docente",
+    false,
     false
 );
 graficoPadraoV2(
     dataDidaticaDocente,
     "barV7",
     "Avaliação da didatica-pedagogica",
+    false,
     false
 );
 graficoPadraoV2(
     dataQualidadeFatec,
     "barV5",
     "Avaliação dos alunos a Qualidade da Fatec",
+    false,
     false
 );
 graficoPadraoV2(
     dataFeteps,
     "barV3",
-    "Avaliação dos alunos a algumas areas da FATEC",
+    "Avaliação dos alunos e docentes a FETEPS - Feira Tecnológica Paula Souza",
+    false,
     false
 );
 
@@ -156,17 +164,27 @@ graficoPadraoV2(
     dataInfraestrutura,
     "barV2",
     `Avaliação dos alunos sobre ${dataInfraestrutura.pergunta}`,
+    false,
     false
 );
 graficoPadraoV2(
     dataEspacoConveniencia,
     "barV8",
     `Avaliação dos alunos sobre ${dataEspacoConveniencia.pergunta}`,
+    false,
     false
 );
 graficoPadraoV2(
     dataSexo,
     "bar",
     `Total de pessoas por curso, docentes e funcionarios`,
-    true
+    true,
+    false
+);
+graficoPadraoV2(
+    dataAcessibilidadeFatec,
+    "barV9",
+    `Avaliação por acessibilidade`,
+    true,
+    false
 );
