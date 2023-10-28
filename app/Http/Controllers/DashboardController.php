@@ -9,6 +9,7 @@ use App\Services\Graficos\FetepsService;
 use App\Services\Graficos\SexoCursosService;
 use App\Services\Graficos\InfraestruturaService;
 use App\Services\Graficos\QualidadeFatecService;
+use App\Services\Graficos\TotaisRespostasService;
 use App\Services\Graficos\CorpoDocenteFatecService;
 use App\Services\Graficos\DidaticaDocenteFatecService;
 
@@ -24,6 +25,7 @@ class DashboardController extends Controller
         FetepsService $fetepsService,
         IdadeService $idadeService,
         QualidadeFatecService $qualidadeFatecService,
+        TotaisRespostasService $totaisRespostasService,
         CorpoDocenteFatecService $corpoDocenteFatecService,
         DidaticaDocenteFatecService $didaticaDocenteFatecService,
         InfraestruturaService $infraestruturaService
@@ -42,13 +44,15 @@ class DashboardController extends Controller
             return stripos($i->pergunta, 'ACESSIBILIDADE') !== false;
         });
         $dataSexo = $sexoCursosService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
-        // dump($dataSexo);
         $dataInfraestrutura = $infraestruturaService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataEspacoConveniencia = $infraestruturaService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario, 87);
         $dataFeteps = $fetepsService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataIdade = $idadeService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataQualidadeFatec = $qualidadeFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataCorpoDocenteFatec = $corpoDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataDidaticaDocente = $didaticaDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataTotaisRespostas = $totaisRespostasService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        // dd($dataTotaisRespostas);
 
         return view(
             'dashboard',
@@ -58,11 +62,13 @@ class DashboardController extends Controller
                 'dadoFuncionario',
                 'dataSexo',
                 'dataInfraestrutura',
+                'dataEspacoConveniencia',
                 'dataFeteps',
                 'dataIdade',
                 'dataQualidadeFatec',
                 'dataCorpoDocenteFatec',
                 'dataDidaticaDocente',
+                'dataTotaisRespostas',
             )
         );
     }

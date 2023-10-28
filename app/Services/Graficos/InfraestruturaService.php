@@ -15,44 +15,61 @@ class InfraestruturaService implements InfraestruturaServiceInterface
      * @param $dadoFuncionario
      * @return mixed
      */
-    public function handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario)
+    public function handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario, $numeroPergunta = '86')
     {
         // dd($dadoDocente->toArray(), $dadoFuncionario->toArray());
-        $perguntaSexo = $dadoAlunoGeral->filter(function ($i) {
-            return $i->indicador == 'Eixo: 5';
-        })
-            ->filter(function ($v) {
-                return in_array($v->pergunta, ['Secretaria acadêmica', 'Espaços de convivência', 'Limpeza/Conservação', 'Iluminação/ Ventilação', 'Mobiliário e Equipamentos']);
-            })
-            ->sortBy('pergunta');
+        // $dataAluno = $dadoAlunoGeral
+        //     ->filter(function ($i) use ($numeroPergunta) {
+        //         return $i->numero_pergunta == $numeroPergunta;
+        //     })
+        //     ->sortBy('pergunta');
 
-        $dataSexo = [];
+        // $dataFeteps = [
+        //     'pergunta' => $dataAluno->first()->pergunta,
+        //     'label' => $dataAluno->first()->resposta,
+        //     'series' => [],
+        // ];
+
+        // foreach ($dataAluno as $v) {
+        //     $titulo = "{$v->pergunta}";
+        //     $slug = \Str::slug($titulo);
+        //     $dt = [
+        //         'name' => $v->curso,
+        //         'data' => $v->porcentagem,
+        //     ];
+        //     $dataFeteps['series'][] = $dt;
+        // }
+
+        // return $dataFeteps;
+
+        $perguntaSexo = $dadoAlunoGeral->filter(function ($i) use ($numeroPergunta) {
+            // return in_array($i->numero_pergunta, ['36']);
+            return $i->numero_pergunta == $numeroPergunta;
+        });
+        $dataSexo = [
+            'pergunta' => $perguntaSexo->first()->pergunta,
+            'label' => [],
+            'series' => [],
+        ];
         foreach ($perguntaSexo as $v) {
-            $titulo = "{$v->pergunta}";
-            $slug = \Str::slug($titulo);
-            $dataSexo['labels'][$slug] = $titulo;
-
-            foreach ($v->resposta as $kk => $vv) {
-                $dataSexo['series'][$kk]['name'] = $vv;
+            if (!in_array($v->curso, $dataSexo['label'])) {
+                $dataSexo['label'][] = $v->curso;
             }
-
-            foreach ($v->totais as $kk => $vv) {
-                if (!isset($dataSexo['series'][$kk]['data'][$slug])) {
-                    $dataSexo['series'][$kk]['data'][$slug] = 0;
-                }
-                $dataSexo['series'][$kk]['data'][$slug] += $vv;
+            foreach ($v->resposta as $kk => $vv) {
+                $key = "{$v->numero_pergunta}_{$kk}";
+                $dataSexo['series'][$key]['name'] = "{$vv}";
+                $dataSexo['series'][$key]['group'] = $vv;
+            }
+            foreach ($v->porcentagem as $kk => $vv) {
+                $key = "{$v->numero_pergunta}_{$kk}";
+                $dataSexo['series'][$key]['data'][] = $vv;
             }
         }
-        $dataSexo['labels'] = array_values($dataSexo['labels']);
-        $dataSexo['series'] = array_map(function ($v) {
-            $v['data'] = array_values($v['data']);
-            return $v;
-        }, $dataSexo['series']);
+        $dataSexo['series'] = array_values($dataSexo['series']);
 
-        $dataSexo['labels'] = array_map(function ($v) {
+        $dataSexo['label'] = array_map(function ($v) {
             return explode(' ', $v);
-        }, $dataSexo['labels']);
-
+        }, $dataSexo['label']);
         return $dataSexo;
     }
 }

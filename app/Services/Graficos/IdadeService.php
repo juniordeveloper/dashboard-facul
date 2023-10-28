@@ -37,7 +37,7 @@ class IdadeService implements IdadeServiceInterface
             foreach ($v->resposta as $kk => $vv) {
                 $dataSexo['series'][$kk]['name'] = $vv;
             }
-            foreach ($v->totais as $kk => $vv) {
+            foreach ($v->porcentagem as $kk => $vv) {
                 $dataSexo['series'][$kk]['data'][] = $vv;
             }
         }

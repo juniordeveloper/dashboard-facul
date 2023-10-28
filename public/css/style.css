@@ -389,6 +389,26 @@ body{
     cursor: pointer;
 }
 
+.content-default main .insights li.ciencia-de-dados .bx{
+    color: #FFF;
+    background: #1A535C;
+}
+.content-default main .insights li.desenvolvimento-de-software-multiplataforma .bx{
+    background: #4ECDC4;
+}
+.content-default main .insights li.gestao-da-producao-industrial .bx{
+    background: #EDAE49;
+}
+.content-default main .insights li.gestao-empresarial .bx{
+    background: #D1495B;
+}
+.content-default main .insights li.docentes .bx{
+    background: #DB504A;
+}
+.content-default main .insights li.funcionarios .bx{
+    background: #84E6F8;
+}
+
 .content-default main .insights li .bx{
     width: 80px;
     height: 80px;
@@ -397,9 +417,10 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #FFF;
 }
 
-.content-default main .insights li:nth-child(1) .bx{
+/* .content-default main .insights li:nth-child(1) .bx{
     background: var(--light-primary);
     color: var(--primary);
 }
@@ -417,16 +438,17 @@ body{
 .content-default main .insights li:nth-child(4) .bx{
     background: var(--light-danger);
     color: var(--danger);
-}
+} */
 
 .content-default main .insights li .info h3{
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 600;
     color: var(--dark);
 }
 
 .content-default main .insights li .info p{
     color: var(--dark);
+    font-size: 14px;
 }
 
 .content-default main .bottom-data{

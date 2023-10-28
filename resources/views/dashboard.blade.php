@@ -68,17 +68,21 @@
             </div>
 
             <!-- Insights -->
+            @foreach ($dataTotaisRespostas as $kk => $vv)
             <ul class="insights">
-                <li>
+                @foreach ($vv as $key => $value)
+                <li class="{{ \Str::slug($key) }}">
                     <i class='bx bx-calendar-check'></i>
                     <span class="info">
                         <h3>
-                            1,074
+                            {{ $key }}
                         </h3>
-                        <p>Items</p>
+                        <p>{{ $value }}</p>
                     </span>
                 </li>
-                <li><i class='bx bx-show-alt'></i>
+                @endforeach
+
+                {{-- <li><i class='bx bx-show-alt'></i>
                     <span class="info">
                         <h3>
                             3,944
@@ -102,7 +106,24 @@
                         <p>Items</p>
                     </span>
                 </li>
+                <li><i class='bx bx-dollar-circle'></i>
+                    <span class="info">
+                        <h3>
+                            $6,742
+                        </h3>
+                        <p>Items</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-dollar-circle'></i>
+                    <span class="info">
+                        <h3>
+                            $6,742
+                        </h3>
+                        <p>Items</p>
+                    </span>
+                </li> --}}
             </ul>
+            @endforeach
 
             <div class="row mt-4">
                 <div class="col-md-6 mb-3">
@@ -189,6 +210,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Infraestrutura</h3>
+                                {{-- <i class='bx bx-filter'></i>
+                                <i class='bx bx-search'></i> --}}
+                            </div>
+
+                            <div id="barV8"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -205,6 +240,7 @@
         var dataQualidadeFatec = {{ Illuminate\Support\Js::from($dataQualidadeFatec) }};
         var dataCorpoDocenteFatec = {{ Illuminate\Support\Js::from($dataCorpoDocenteFatec) }};
         var dataDidaticaDocente = {{ Illuminate\Support\Js::from($dataDidaticaDocente) }};
+        var dataEspacoConveniencia = {{ Illuminate\Support\Js::from($dataEspacoConveniencia) }};
     </script>
     <script src="/js/app.js"></script>
 </body>

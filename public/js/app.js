@@ -2066,660 +2066,121 @@ window.Apex = {
     // enabled: false,
   }
 };
-var optionsBar = {
-  chart: {
-    type: "bar",
-    height: 450,
-    width: "100%",
-    foreColor: "#999",
-    stacked: true
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      borderRadius: 10,
-      dataLabels: {
-        total: {
-          enabled: false,
-          style: {
-            fontSize: "13px",
-            fontWeight: 900
+function graficoPadraoV2(data, elemento, titulo, stacked, percentagem) {
+  // let colores = [
+  //     "#e60049",
+  //     "#0bb4ff",
+  //     "#50e991",
+  //     "#e6d800",
+  //     "#9b19f5",
+  //     "#ffa300",
+  //     "#dc0ab4",
+  //     "#b3d4ff",
+  //     "#00bfa0",
+  // ];
+  var colores = ["#1A535C", "#4ECDC4", "#EDAE49", "#D1495B", "#DB504A", "#84E6F8", "#D7C0D0"];
+  var optionsBarV6 = {
+    chart: {
+      type: "bar",
+      height: 450,
+      width: "100%",
+      foreColor: "#000",
+      stacked: stacked
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        // borderRadius: 10,
+        dataLabels: {
+          total: {
+            enabled: false,
+            style: {
+              fontSize: "11px",
+              fontWeight: 900
+            }
           }
         }
       }
-    }
-  },
-  colors: ["#1976D2", "#FECDD3"],
-  series: dataSexo.series,
-  labels: dataSexo.label,
-  xaxis: {
-    axisBorder: {
-      show: true
     },
-    axisTicks: {
-      show: true
-    },
-    crosshairs: {
-      show: true
-    },
-    labels: {
-      show: true,
-      style: {
-        fontSize: "12px"
-      }
-    }
-  },
-  dataLabels: {
-    enabled: true,
-    formatter: function formatter(val, opt) {
-      // return opt.w.globals.seriesNames[opt.seriesIndex] + ":  " + val;
-      return val;
-    },
-    style: {
-      fontSize: "11px",
-      colors: ["#304758"]
-    }
-  },
-  grid: {
+    colors: colores,
+    series: data.series,
+    labels: data.label,
     xaxis: {
-      lines: {
+      axisBorder: {
         show: true
-      }
-    },
-    yaxis: {
-      lines: {
+      },
+      axisTicks: {
         show: true
-      }
-    }
-  },
-  yaxis: {
-    axisBorder: {
-      show: true
-    },
-    labels: {
-      show: true
-    }
-  },
-  legend: {
-    floating: true,
-    position: "top",
-    horizontalAlign: "right",
-    offsetY: -10
-  },
-  title: {
-    text: "Total de pessoas por curso, docentes e funcionarios",
-    align: "left"
-  },
-  subtitle: {
-    // text: "Sessions and Views",
-  },
-  tooltip: {
-    shared: true,
-    intersect: false
-  }
-};
-var chartBar = new ApexCharts(document.querySelector("#bar"), optionsBar);
-chartBar.render();
-var optionsBarV2 = {
-  chart: {
-    type: "bar",
-    height: 450,
-    width: "100%",
-    foreColor: "#999"
-    // stacked: true,
-  },
-
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      // borderRadius: 10,
-      dataLabels: {
-        total: {
-          enabled: false,
-          style: {
-            fontSize: "13px",
-            fontWeight: 900
-          }
+      },
+      crosshairs: {
+        show: true
+      },
+      labels: {
+        show: true,
+        style: {
+          fontSize: "12px"
         }
       }
-    }
-  },
-  // colors: ["#1976D2", "#FECDD3"],
-  series: dataInfraestrutura.series,
-  labels: dataInfraestrutura.labels,
-  xaxis: {
-    axisBorder: {
-      show: true
     },
-    axisTicks: {
-      show: true
-    },
-    crosshairs: {
-      show: true
-    },
-    labels: {
-      show: true,
+    dataLabels: {
+      enabled: true,
+      formatter: function formatter(val, opt) {
+        return "".concat(val, "%");
+      },
       style: {
-        fontSize: "12px"
-      }
-    }
-  },
-  dataLabels: {
-    enabled: true,
-    formatter: function formatter(val, opt) {
-      return val;
-    },
-    style: {
-      fontSize: "11px",
-      colors: ["#304758"]
-    }
-  },
-  grid: {
-    xaxis: {
-      lines: {
-        show: true
+        fontSize: "11px",
+        colors: ["#000"]
       }
     },
-    yaxis: {
-      lines: {
-        show: true
-      }
-    }
-  },
-  yaxis: {
-    axisBorder: {
-      show: true
-    },
-    labels: {
-      show: true
-    }
-  },
-  legend: {
-    floating: true,
-    position: "top",
-    horizontalAlign: "right",
-    offsetY: -10
-  },
-  title: {
-    text: "Avaliação dos alunos a algumas areas da FATEC",
-    align: "left"
-  },
-  subtitle: {
-    // text: "Sessions and Views",
-  },
-  tooltip: {
-    shared: true,
-    intersect: false
-  }
-};
-var chartBar = new ApexCharts(document.querySelector("#barV2"), optionsBarV2);
-chartBar.render();
-var optionsBarV3 = {
-  chart: {
-    type: "bar",
-    height: 450,
-    width: "100%",
-    foreColor: "#999"
-    // stacked: true,
-  },
-
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      // borderRadius: 10,
-      dataLabels: {
-        total: {
-          enabled: false,
-          style: {
-            fontSize: "13px",
-            fontWeight: 900
-          }
+    grid: {
+      xaxis: {
+        lines: {
+          show: true
+        }
+      },
+      yaxis: {
+        lines: {
+          show: true
         }
       }
-    }
-  },
-  // colors: ["#1976D2", "#FECDD3"],
-  series: dataFeteps.series,
-  labels: dataFeteps.label,
-  xaxis: {
-    axisBorder: {
-      show: true
-    },
-    axisTicks: {
-      show: true
-    },
-    crosshairs: {
-      show: true
-    },
-    labels: {
-      show: true,
-      style: {
-        fontSize: "12px"
-      }
-    }
-  },
-  dataLabels: {
-    enabled: true,
-    formatter: function formatter(val, opt) {
-      return "".concat(val, "%");
-    },
-    style: {
-      fontSize: "11px",
-      colors: ["#304758"]
-    }
-  },
-  grid: {
-    xaxis: {
-      lines: {
-        show: true
-      }
     },
     yaxis: {
-      lines: {
+      axisBorder: {
         show: true
-      }
-    }
-  },
-  yaxis: {
-    axisBorder: {
-      show: true
-    },
-    labels: {
-      show: true
-    }
-  },
-  legend: {
-    floating: true,
-    position: "top",
-    horizontalAlign: "right",
-    offsetY: -10
-  },
-  title: {
-    text: "Avaliação dos alunos a algumas areas da FATEC",
-    align: "left"
-  },
-  subtitle: {
-    // text: "Sessions and Views",
-  },
-  tooltip: {
-    shared: true,
-    intersect: false
-  }
-};
-var chartBar = new ApexCharts(document.querySelector("#barV3"), optionsBarV3);
-chartBar.render();
-var optionsBarV4 = {
-  chart: {
-    type: "bar",
-    height: 450,
-    width: "100%",
-    foreColor: "#999"
-    // stacked: true,
-  },
-
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      // borderRadius: 10,
-      dataLabels: {
-        total: {
-          enabled: false,
-          style: {
-            fontSize: "13px",
-            fontWeight: 900
-          }
-        }
-      }
-    }
-  },
-  // colors: ["#1976D2", "#FECDD3"],
-  series: dataIdade.series,
-  labels: dataIdade.label,
-  xaxis: {
-    axisBorder: {
-      show: true
-    },
-    axisTicks: {
-      show: true
-    },
-    crosshairs: {
-      show: true
-    },
-    labels: {
-      show: true,
-      style: {
-        fontSize: "12px"
-      }
-    }
-  },
-  dataLabels: {
-    enabled: true,
-    formatter: function formatter(val, opt) {
-      return "".concat(val);
-    },
-    style: {
-      fontSize: "11px",
-      colors: ["#304758"]
-    }
-  },
-  grid: {
-    xaxis: {
-      lines: {
+      },
+      labels: {
         show: true
       }
     },
-    yaxis: {
-      lines: {
-        show: true
-      }
+    // legend: {
+    //     floating: true,
+    //     position: "top",
+    //     horizontalAlign: "right",
+    //     offsetY: -10,
+    // },
+    title: {
+      text: titulo,
+      align: "left"
+    },
+    subtitle: {
+      // text: "Sessions and Views",
+    },
+    tooltip: {
+      shared: true,
+      intersect: false
     }
-  },
-  yaxis: {
-    axisBorder: {
-      show: true
-    },
-    labels: {
-      show: true
-    }
-  },
-  legend: {
-    floating: true,
-    position: "top",
-    horizontalAlign: "right",
-    offsetY: -10
-  },
-  title: {
-    text: "Idade dos alunos por curso",
-    align: "left"
-  },
-  subtitle: {
-    // text: "Sessions and Views",
-  },
-  tooltip: {
-    shared: true,
-    intersect: false
-  }
-};
-var chartBar = new ApexCharts(document.querySelector("#barV4"), optionsBarV4);
-chartBar.render();
-var optionsBarV5 = {
-  chart: {
-    type: "bar",
-    height: 450,
-    width: "100%",
-    foreColor: "#999"
-    // stacked: true,
-  },
-
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      // borderRadius: 10,
-      dataLabels: {
-        total: {
-          enabled: false,
-          style: {
-            fontSize: "13px",
-            fontWeight: 900
-          }
-        }
-      }
-    }
-  },
-  // colors: ["#1976D2", "#FECDD3"],
-  series: dataQualidadeFatec.series,
-  labels: dataQualidadeFatec.label,
-  xaxis: {
-    axisBorder: {
-      show: true
-    },
-    axisTicks: {
-      show: true
-    },
-    crosshairs: {
-      show: true
-    },
-    labels: {
-      show: true,
-      style: {
-        fontSize: "12px"
-      }
-    }
-  },
-  dataLabels: {
-    enabled: true,
-    formatter: function formatter(val, opt) {
-      return "".concat(val, "%");
-    },
-    style: {
-      fontSize: "11px",
-      colors: ["#304758"]
-    }
-  },
-  grid: {
-    xaxis: {
-      lines: {
-        show: true
-      }
-    },
-    yaxis: {
-      lines: {
-        show: true
-      }
-    }
-  },
-  yaxis: {
-    axisBorder: {
-      show: true
-    },
-    labels: {
-      show: true
-    }
-  },
-  legend: {
-    floating: true,
-    position: "top",
-    horizontalAlign: "right",
-    offsetY: -10
-  },
-  title: {
-    text: "Avaliação da Fatec",
-    align: "left"
-  },
-  subtitle: {
-    // text: "Sessions and Views",
-  },
-  tooltip: {
-    shared: true,
-    intersect: false
-  }
-};
-var chartBar = new ApexCharts(document.querySelector("#barV5"), optionsBarV5);
-chartBar.render();
-var optionsBarV6 = {
-  chart: {
-    type: "bar",
-    height: 450,
-    width: "100%",
-    foreColor: "#999",
-    stacked: true
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      // borderRadius: 10,
-      dataLabels: {
-        total: {
-          enabled: false,
-          style: {
-            fontSize: "13px",
-            fontWeight: 900
-          }
-        }
-      }
-    }
-  },
-  series: dataCorpoDocenteFatec.series,
-  labels: dataCorpoDocenteFatec.label,
-  xaxis: {
-    axisBorder: {
-      show: true
-    },
-    axisTicks: {
-      show: true
-    },
-    crosshairs: {
-      show: true
-    },
-    labels: {
-      show: true,
-      style: {
-        fontSize: "12px"
-      }
-    }
-  },
-  dataLabels: {
-    enabled: true,
-    formatter: function formatter(val, opt) {
-      return "".concat(val, "%");
-    },
-    style: {
-      fontSize: "11px",
-      colors: ["#304758"]
-    }
-  },
-  grid: {
-    xaxis: {
-      lines: {
-        show: true
-      }
-    },
-    yaxis: {
-      lines: {
-        show: true
-      }
-    }
-  },
-  yaxis: {
-    axisBorder: {
-      show: true
-    },
-    labels: {
-      show: true
-    }
-  },
-  // legend: {
-  //     floating: true,
-  //     position: "top",
-  //     horizontalAlign: "right",
-  //     offsetY: -10,
-  // },
-  title: {
-    text: "Avaliação da Fatec",
-    align: "left"
-  },
-  subtitle: {
-    // text: "Sessions and Views",
-  },
-  tooltip: {
-    shared: true,
-    intersect: false
-  }
-};
-var chartBar = new ApexCharts(document.querySelector("#barV6"), optionsBarV6);
-chartBar.render();
-var optionsBarV7 = {
-  chart: {
-    type: "bar",
-    height: 450,
-    width: "100%",
-    foreColor: "#999",
-    stacked: true
-  },
-  plotOptions: {
-    bar: {
-      horizontal: false,
-      // borderRadius: 10,
-      dataLabels: {
-        total: {
-          enabled: false,
-          style: {
-            fontSize: "13px",
-            fontWeight: 900
-          }
-        }
-      }
-    }
-  },
-  series: dataDidaticaDocente.series,
-  labels: dataDidaticaDocente.label,
-  xaxis: {
-    axisBorder: {
-      show: true
-    },
-    axisTicks: {
-      show: true
-    },
-    crosshairs: {
-      show: true
-    },
-    labels: {
-      show: true,
-      style: {
-        fontSize: "12px"
-      }
-    }
-  },
-  dataLabels: {
-    enabled: true,
-    formatter: function formatter(val, opt) {
-      return "".concat(val, "%");
-    },
-    style: {
-      fontSize: "11px",
-      colors: ["#304758"]
-    }
-  },
-  grid: {
-    xaxis: {
-      lines: {
-        show: true
-      }
-    },
-    yaxis: {
-      lines: {
-        show: true
-      }
-    }
-  },
-  yaxis: {
-    axisBorder: {
-      show: true
-    },
-    labels: {
-      show: true
-    }
-  },
-  legend: {
-    floating: true,
-    position: "top",
-    horizontalAlign: "right",
-    offsetY: -10
-  },
-  title: {
-    text: "Avaliação da Fatec",
-    align: "left"
-  },
-  subtitle: {
-    // text: "Sessions and Views",
-  },
-  tooltip: {
-    shared: true,
-    intersect: false
-  }
-};
-var chartBar = new ApexCharts(document.querySelector("#barV7"), optionsBarV7);
-chartBar.render();
+  };
+  var chartBar = new ApexCharts(document.querySelector("#".concat(elemento)), optionsBarV6);
+  chartBar.render();
+}
+graficoPadraoV2(dataIdade, "barV4", "Idade dos alunos por Curso", false);
+graficoPadraoV2(dataCorpoDocenteFatec, "barV6", "Avaliação ao corpo docente", false);
+graficoPadraoV2(dataDidaticaDocente, "barV7", "Avaliação da didatica-pedagogica", false);
+graficoPadraoV2(dataQualidadeFatec, "barV5", "Avaliação dos alunos a Qualidade da Fatec", false);
+graficoPadraoV2(dataFeteps, "barV3", "Avaliação dos alunos a algumas areas da FATEC", false);
+graficoPadraoV2(dataInfraestrutura, "barV2", "Avalia\xE7\xE3o dos alunos sobre ".concat(dataInfraestrutura.pergunta), false);
+graficoPadraoV2(dataEspacoConveniencia, "barV8", "Avalia\xE7\xE3o dos alunos sobre ".concat(dataEspacoConveniencia.pergunta), false);
+graficoPadraoV2(dataSexo, "bar", "Total de pessoas por curso, docentes e funcionarios", true);
 
 /***/ }),
 

@@ -35,19 +35,19 @@ class SexoCursosService implements SexoCursosServiceInterface
             foreach ($v->resposta as $kk => $vv) {
                 $dataSexo['series'][$kk]['name'] = $vv;
             }
-            foreach ($v->totais as $kk => $vv) {
+            foreach ($v->porcentagem as $kk => $vv) {
                 $dataSexo['series'][$kk]['data'][] = $vv;
             }
         }
         $dataSexo['label'][] = 'Docentes';
         $dataSexo['label'][] = 'Funcionarios';
         foreach ($perguntaSexoDocente as $v) {
-            foreach ($v->totais as $kk => $vv) {
+            foreach ($v->porcentagem as $kk => $vv) {
                 $dataSexo['series'][$kk]['data'][] = $vv;
             }
         }
         foreach ($perguntaSexoFuncionario as $v) {
-            foreach ($v->totais as $kk => $vv) {
+            foreach ($v->porcentagem as $kk => $vv) {
                 $dataSexo['series'][$kk]['data'][] = $vv;
             }
         }

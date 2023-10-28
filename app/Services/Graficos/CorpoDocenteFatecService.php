@@ -15,11 +15,12 @@ class CorpoDocenteFatecService implements CorpoDocenteFatecServiceInterface
      * @param $dadoFuncionario
      * @return mixed
      */
-    public function handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario)
+    public function handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario, $numeroPergunta = 36)
     {
         // dd($dadoDocente->toArray(), $dadoFuncionario->toArray());
-        $perguntaSexo = $dadoAlunoGeral->filter(function ($i) {
-            return in_array($i->numero_pergunta, ['36']);
+        $perguntaSexo = $dadoAlunoGeral->filter(function ($i) use ($numeroPergunta) {
+            // return in_array($i->numero_pergunta, ['36']);
+            return $i->numero_pergunta == $numeroPergunta;
         });
         $dataSexo = [
             'label' => [],
