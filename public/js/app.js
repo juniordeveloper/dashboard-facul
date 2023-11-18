@@ -2060,6 +2060,10 @@ module.exports = {
   \*****************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Apex = {
   // chart: {
@@ -2070,20 +2074,18 @@ window.Apex = {
     // enabled: false,
   }
 };
-function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
-  // let colores = [
-  //     "#e60049",
-  //     "#0bb4ff",
-  //     "#50e991",
-  //     "#e6d800",
-  //     "#9b19f5",
-  //     "#ffa300",
-  //     "#dc0ab4",
-  //     "#b3d4ff",
-  //     "#00bfa0",
-  // ];
-  var colores = ["#1A535C", "#4ECDC4", "#EDAE49", "#D1495B", "#DB504A", "#84E6F8", "#D7C0D0"];
-  var optionsBarV6 = {
+function graficoPadraoV2(data, elemento, titulo, stacked, horizontal, porcentagem) {
+  var coloresV1 = ["#e60049", "#0bb4ff", "#50e991", "#e6d800", "#9b19f5", "#ffa300", "#dc0ab4", "#b3d4ff", "#00bfa0"];
+  var coloresv2 = ["#1A535C", "#4ECDC4", "#EDAE49", "#D1495B", "#DB504A", "#84E6F8", "#D7C0D0"];
+  var coloresv3 = ['#191970', '#000080', '#00008B', '#0000CD', '#0000FF', '#6495ED', '#4169E1', '#1E90FF', '#00BFFF', '#87CEFA', '#87CEEB', '#4682B4', '#B0C4DE'];
+  var escalas = {
+    '0': coloresv3,
+    '1': coloresv2,
+    '2': coloresV1
+  };
+  var randEscala = parseInt(Math.random() * 3);
+  colores = escalas[randEscala];
+  var optionsBarV6 = _defineProperty({
     chart: {
       type: "bar",
       height: horizontal === false ? 450 : 'auto',
@@ -2129,7 +2131,7 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
     dataLabels: {
       enabled: true,
       formatter: function formatter(val, opt) {
-        return "".concat(val, "%");
+        return porcentagem ? "".concat(val, "%") : val;
       },
       style: {
         fontSize: "11px",
@@ -2173,19 +2175,25 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
       shared: true,
       intersect: false
     }
-  };
+  }, "plotOptions", {
+    bar: {
+      distributed: !porcentagem
+    }
+  });
   var chartBar = new ApexCharts(document.querySelector("#".concat(elemento)), optionsBarV6);
   chartBar.render();
 }
-graficoPadraoV2(dataIdade, "barV4", "Idade dos alunos por Curso", false, true);
-graficoPadraoV2(dataCorpoDocenteFatec, "barV6", "Avaliação ao corpo docente", false, false);
-graficoPadraoV2(dataDidaticaDocente, "barV7", "Avaliação da didatica-pedagogica", false, false);
-graficoPadraoV2(dataQualidadeFatec, "barV5", "Avaliação dos alunos a Qualidade da Fatec", false, false);
-graficoPadraoV2(dataFeteps, "barV3", "Avaliação dos alunos e docentes a FETEPS - Feira Tecnológica Paula Souza", false, false);
-graficoPadraoV2(dataInfraestrutura, "barV2", "Avalia\xE7\xE3o dos alunos sobre ".concat(dataInfraestrutura.pergunta), false, false);
-graficoPadraoV2(dataEspacoConveniencia, "barV8", "Avalia\xE7\xE3o dos alunos sobre ".concat(dataEspacoConveniencia.pergunta), false, false);
-graficoPadraoV2(dataSexo, "bar", "Total de pessoas por curso, docentes e funcionarios", true, false);
-graficoPadraoV2(dataAcessibilidadeFatec, "barV9", "Avalia\xE7\xE3o por acessibilidade", true, false);
+graficoPadraoV2(dataIdade, "barV4", "Idade dos alunos por Curso", false, true, true);
+graficoPadraoV2(dataCorpoDocenteFatec, "barV6", "Avaliação ao corpo docente", false, false, true);
+graficoPadraoV2(dataDidaticaDocente, "barV7", "Avaliação da didatica-pedagogica", false, false, true);
+graficoPadraoV2(dataQualidadeFatec, "barV5", "Avaliação dos alunos a Qualidade da Fatec", false, false, true);
+graficoPadraoV2(dataFeteps, "barV3", "Avaliação dos alunos e docentes a FETEPS - Feira Tecnológica Paula Souza", false, false, true);
+graficoPadraoV2(dataInfraestrutura, "barV2", "Avalia\xE7\xE3o dos alunos sobre ".concat(dataInfraestrutura.pergunta), false, false, true);
+graficoPadraoV2(dataEspacoConveniencia, "barV8", "Avalia\xE7\xE3o dos alunos sobre ".concat(dataEspacoConveniencia.pergunta), false, false, true);
+graficoPadraoV2(dataSexo, "bar", "Total de pessoas por curso, docentes e funcionarios", true, false, true);
+graficoPadraoV2(dataAcessibilidadeFatec, "barV9", "Avalia\xE7\xE3o por acessibilidade", true, false, true);
+graficoPadraoV2(dataConhecimentoFatec, "barV10", "Fatec em Cotia", true, false, false);
+graficoPadraoV2(dataRedesFatec, "barV11", "Fatec em Cotia", false, false, false);
 
 /***/ }),
 

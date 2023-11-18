@@ -10,19 +10,19 @@ window.Apex = {
     },
 };
 
-function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
-    // let colores = [
-    //     "#e60049",
-    //     "#0bb4ff",
-    //     "#50e991",
-    //     "#e6d800",
-    //     "#9b19f5",
-    //     "#ffa300",
-    //     "#dc0ab4",
-    //     "#b3d4ff",
-    //     "#00bfa0",
-    // ];
-    let colores = [
+function graficoPadraoV2(data, elemento, titulo, stacked, horizontal, porcentagem) {
+    let coloresV1 = [
+        "#e60049",
+        "#0bb4ff",
+        "#50e991",
+        "#e6d800",
+        "#9b19f5",
+        "#ffa300",
+        "#dc0ab4",
+        "#b3d4ff",
+        "#00bfa0",
+    ];
+    let coloresv2 = [
         "#1A535C",
         "#4ECDC4",
         "#EDAE49",
@@ -31,6 +31,28 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
         "#84E6F8",
         "#D7C0D0",
     ];
+    let coloresv3 = [
+        '#191970',
+        '#000080',
+        '#00008B',
+        '#0000CD',
+        '#0000FF',
+        '#6495ED',
+        '#4169E1',
+        '#1E90FF',
+        '#00BFFF',
+        '#87CEFA',
+        '#87CEEB',
+        '#4682B4',
+        '#B0C4DE',
+    ];
+    let escalas = {
+        '0':coloresv3,
+        '1':coloresv2,
+        '2':coloresV1,
+    }
+    let randEscala = parseInt(Math.random() * 3);
+    colores = escalas[randEscala];
     var optionsBarV6 = {
         chart: {
             type: "bar",
@@ -77,7 +99,7 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
         dataLabels: {
             enabled: true,
             formatter: function (val, opt) {
-                return `${val}%`;
+                return porcentagem ? `${val}%` : val;
             },
             style: {
                 fontSize: "11px",
@@ -121,6 +143,11 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
             shared: true,
             intersect: false,
         },
+        plotOptions: {
+            bar: {
+              distributed: !porcentagem,
+            }
+        },
     };
 
     var chartBar = new ApexCharts(
@@ -130,34 +157,38 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal) {
     chartBar.render();
 }
 
-graficoPadraoV2(dataIdade, "barV4", "Idade dos alunos por Curso", false, true);
+graficoPadraoV2(dataIdade, "barV4", "Idade dos alunos por Curso", false, true, true);
 graficoPadraoV2(
     dataCorpoDocenteFatec,
     "barV6",
     "Avaliação ao corpo docente",
     false,
-    false
+    false,
+    true
 );
 graficoPadraoV2(
     dataDidaticaDocente,
     "barV7",
     "Avaliação da didatica-pedagogica",
     false,
-    false
+    false,
+    true
 );
 graficoPadraoV2(
     dataQualidadeFatec,
     "barV5",
     "Avaliação dos alunos a Qualidade da Fatec",
     false,
-    false
+    false,
+    true
 );
 graficoPadraoV2(
     dataFeteps,
     "barV3",
     "Avaliação dos alunos e docentes a FETEPS - Feira Tecnológica Paula Souza",
     false,
-    false
+    false,
+    true
 );
 
 graficoPadraoV2(
@@ -165,26 +196,46 @@ graficoPadraoV2(
     "barV2",
     `Avaliação dos alunos sobre ${dataInfraestrutura.pergunta}`,
     false,
-    false
+    false,
+    true
 );
 graficoPadraoV2(
     dataEspacoConveniencia,
     "barV8",
     `Avaliação dos alunos sobre ${dataEspacoConveniencia.pergunta}`,
     false,
-    false
+    false,
+    true
 );
 graficoPadraoV2(
     dataSexo,
     "bar",
     `Total de pessoas por curso, docentes e funcionarios`,
     true,
-    false
+    false,
+    true
 );
 graficoPadraoV2(
     dataAcessibilidadeFatec,
     "barV9",
     `Avaliação por acessibilidade`,
     true,
+    false,
+    true
+);
+graficoPadraoV2(
+    dataConhecimentoFatec,
+    "barV10",
+    `Fatec em Cotia`,
+    true,
+    false,
+    false
+);
+graficoPadraoV2(
+    dataRedesFatec,
+    "barV11",
+    `Fatec em Cotia`,
+    false,
+    false,
     false
 );

@@ -238,6 +238,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Conhecimento de ter um FATEC em cotia</h3>
+                                {{-- <i class='bx bx-filter'></i>
+                                <i class='bx bx-search'></i> --}}
+                            </div>
+
+                            <div id="barV10"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Conhecimento de ter um FATEC em cotia</h3>
+                                {{-- <i class='bx bx-filter'></i>
+                                <i class='bx bx-search'></i> --}}
+                            </div>
+
+                            <div id="barV11"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -256,6 +284,8 @@
         var dataDidaticaDocente = {{ Illuminate\Support\Js::from($dataDidaticaDocente) }};
         var dataEspacoConveniencia = {{ Illuminate\Support\Js::from($dataEspacoConveniencia) }};
         var dataAcessibilidadeFatec = {{ Illuminate\Support\Js::from($dataAcessibilidadeFatec) }};
+        var dataConhecimentoFatec = {'label':['Já ouvi falar mas não sabia que era publica', 'Nunca ouvi falar','Já ouvi falar e não sabia que era pública','Sei um pouco sobre a fatec e os cursos','Sei bastante sobre a fatec e os cursos'],"series":[{"name":"Conhecimento Fatec","data":[264,232,170,131,24]}]};
+        var dataRedesFatec = {{ Illuminate\Support\Js::from($dataConhecimentoRede) }};
     </script>
     <script src="/js/app.js"></script>
 </body>

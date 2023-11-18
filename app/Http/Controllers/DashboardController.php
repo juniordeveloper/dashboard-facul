@@ -30,6 +30,24 @@ class DashboardController extends Controller
         DidaticaDocenteFatecService $didaticaDocenteFatecService,
         InfraestruturaService $infraestruturaService
     ) {
+
+        $jsonContent = File::get(storage_path('json') . '/teste.json');
+        $jsonContent = collect(json_decode($jsonContent));
+        $conhecimentoRede = [
+            'label' => [],
+            'series' => [],
+        ];
+        foreach($jsonContent as $v) {
+            if (!in_array($v->label, $conhecimentoRede['label'])) {
+                $conhecimentoRede['label'][] = $v->label;
+                $conhecimentoRede['series']['data'][$v->label] = 0;
+            }
+            $conhecimentoRede['series']['data'][$v->label]++;
+        }
+        $conhecimentoRede['series'][0]['data'] = array_values($conhecimentoRede['series']['data']);
+        $conhecimentoRede['series'][0]['name'] = 'Informação vestibular';
+        unset($conhecimentoRede['series']['data']);
+
         $this->setDataCacheJson();
 
         $dadoAlunoGeral = $this->getCache('dados_aluno');
@@ -53,6 +71,7 @@ class DashboardController extends Controller
         $dataAcessibilidadeFatec = $corpoDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario, 100);
         $dataDidaticaDocente = $didaticaDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataTotaisRespostas = $totaisRespostasService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataConhecimentoRede = $conhecimentoRede;
         // dd($dataTotaisRespostas);
 
         return view(
@@ -70,6 +89,7 @@ class DashboardController extends Controller
                 'dataCorpoDocenteFatec',
                 'dataDidaticaDocente',
                 'dataTotaisRespostas',
+                'dataConhecimentoRede',
                 'dataAcessibilidadeFatec'
             )
         );
@@ -85,6 +105,10 @@ class DashboardController extends Controller
         foreach ($filesInFolder as $file) {
             $json = $file->getPathname();
             $basename = $file->getBasename('.json');
+
+            if($basename == 'teste') {
+                continue;
+            }
 
             if (Cache::has("dados_{$basename}")) {
                 continue;
