@@ -12,9 +12,29 @@ use App\Services\Graficos\QualidadeFatecService;
 use App\Services\Graficos\TotaisRespostasService;
 use App\Services\Graficos\CorpoDocenteFatecService;
 use App\Services\Graficos\DidaticaDocenteFatecService;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
+    function calcularNPS($respostas) {
+        $promotores = 0;
+        $detratores = 0;
+        $totalRespostas = count($respostas);
+    
+        foreach ($respostas as $resposta) {
+            if ($resposta >= 9 && $resposta <= 10) {
+                $promotores++;
+            } elseif ($resposta >= 0 && $resposta <= 6) {
+                $detratores++;
+            }
+            // Ignora respostas neutras (entre 7 e 8)
+        }
+    
+        $nps = (($promotores - $detratores) / $totalRespostas) * 100;
+    
+        return $nps;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,6 +50,28 @@ class DashboardController extends Controller
         DidaticaDocenteFatecService $didaticaDocenteFatecService,
         InfraestruturaService $infraestruturaService
     ) {
+
+        $jsonContent = File::get(storage_path('json') . '/csvjson.json');
+        $jsonContent = collect(json_decode($jsonContent));
+        $jsonContent = $jsonContent->filter(function($item){
+            // 'Company1983','Company2636'
+            return in_array($item->EMPRESA, ['Company2636']);
+        })
+        ->map(function($item) {
+            $dataResposta = Carbon::createFromFormat('n/j/y G:i', $item->DATA_RESPOSTA);
+            $item->ano = $dataResposta->format('Y');
+            return $item;
+        })
+        ->groupBy('ano');
+        foreach($jsonContent as $ano => $dados) {
+            $nps = $dados->pluck('RESPOSTA_NPS')->toArray();
+            dump($ano);
+            dump(implode(', ', $nps));
+            dump($this->calcularNPS($nps));
+            dump('===========================');
+        }
+
+        die;
 
         $jsonContent = File::get(storage_path('json') . '/teste.json');
         $jsonContent = collect(json_decode($jsonContent));

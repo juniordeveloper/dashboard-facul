@@ -11,7 +11,7 @@ window.Apex = {
 };
 
 function graficoPadraoV2(data, elemento, titulo, stacked, horizontal, porcentagem) {
-    let coloresV1 = [
+    let coloresv1 = [
         "#e60049",
         "#0bb4ff",
         "#50e991",
@@ -46,13 +46,15 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal, porcentage
         '#4682B4',
         '#B0C4DE',
     ];
+    let coloresv4 = ['#00FFFF', '#00CED1', '#40E0D0', '#48D1CC', '#20B2AA', '#008B8B', '#008B8B', '#7FFFD4', '#66CDAA', '#5F9EA0'];
     let escalas = {
         '0':coloresv3,
         '1':coloresv2,
-        '2':coloresV1,
+        '2':coloresv1,
     }
     let randEscala = parseInt(Math.random() * 3);
-    colores = escalas[randEscala];
+    let colores = escalas[randEscala];
+    colores = coloresv4;
     var optionsBarV6 = {
         chart: {
             type: "bar",
@@ -234,7 +236,7 @@ graficoPadraoV2(
 graficoPadraoV2(
     dataRedesFatec,
     "barV11",
-    `Fatec em Cotia`,
+    `Por onde conheceu`,
     false,
     false,
     false

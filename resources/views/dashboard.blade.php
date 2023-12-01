@@ -257,7 +257,7 @@
                         <div class="orders">
                             <div class="header">
                                 <i class='bx bx-receipt'></i>
-                                <h3>Conhecimento de ter um FATEC em cotia</h3>
+                                <h3>Por onde Conheceu</h3>
                                 {{-- <i class='bx bx-filter'></i>
                                 <i class='bx bx-search'></i> --}}
                             </div>
