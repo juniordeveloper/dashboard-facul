@@ -2087,9 +2087,13 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal, porcentage
   var randEscala = parseInt(Math.random() * 3);
   var colores = escalas[randEscala];
   colores = coloresv4;
+  var tipoGrafico = 'bar';
+  if (elemento == 'barV14') {
+    tipoGrafico = 'pie';
+  }
   var optionsBarV6 = _defineProperty({
     chart: {
-      type: "bar",
+      type: tipoGrafico,
       height: horizontal === false ? 450 : 'auto',
       width: "100%",
       foreColor: "#000",
@@ -2182,20 +2186,134 @@ function graficoPadraoV2(data, elemento, titulo, stacked, horizontal, porcentage
       distributed: !porcentagem
     }
   });
-  var chartBar = new ApexCharts(document.querySelector("#".concat(elemento)), optionsBarV6);
+  var optionsPie = {
+    chart: {
+      type: 'pie',
+      // width: "100%"
+      height: '463',
+      foreColor: "#000",
+      stacked: stacked,
+      toolbar: {
+        show: true
+      }
+    },
+    plotOptions: {
+      pie: {
+        horizontal: horizontal,
+        // borderRadius: 10,
+        dataLabels: {
+          total: {
+            enabled: false,
+            style: {
+              fontSize: "11px",
+              fontWeight: 900
+            }
+          }
+        }
+      }
+    },
+    colors: colores,
+    // labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+    series: data.series[0].data,
+    labels: data.label,
+    xaxis: {
+      axisBorder: {
+        show: true
+      },
+      axisTicks: {
+        show: true
+      },
+      crosshairs: {
+        show: true
+      },
+      labels: {
+        show: true,
+        style: {
+          fontSize: "12px"
+        }
+      }
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: function formatter(val, opt) {
+        return porcentagem ? "".concat(val, "%") : val;
+      },
+      style: {
+        fontSize: "11px",
+        colors: ["#000"]
+      }
+    },
+    grid: {
+      xaxis: {
+        lines: {
+          show: true
+        }
+      },
+      yaxis: {
+        lines: {
+          show: true
+        }
+      }
+    },
+    yaxis: {
+      axisBorder: {
+        show: true
+      },
+      labels: {
+        show: true
+      }
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }],
+    title: {
+      text: titulo,
+      align: "left"
+    },
+    subtitle: {
+      // text: "Sessions and Views",
+    },
+    tooltip: {
+      shared: true,
+      intersect: false
+    }
+  };
+  var chartBar = new ApexCharts(document.querySelector("#".concat(elemento)), elemento == 'barV14' ? optionsPie : optionsBarV6);
   chartBar.render();
 }
 graficoPadraoV2(dataIdade, "barV4", "Idade dos alunos por Curso", false, true, true);
 graficoPadraoV2(dataCorpoDocenteFatec, "barV6", "Avaliação ao corpo docente", false, false, true);
 graficoPadraoV2(dataDidaticaDocente, "barV7", "Avaliação da didatica-pedagogica", false, false, true);
+graficoPadraoV2(dataSatisfacao, "barV16", "Satisfação pelo curso escolhido", false, false, true);
 graficoPadraoV2(dataQualidadeFatec, "barV5", "Avaliação dos alunos a Qualidade da Fatec", false, false, true);
-graficoPadraoV2(dataFeteps, "barV3", "Avaliação dos alunos e docentes a FETEPS - Feira Tecnológica Paula Souza", false, false, true);
+// graficoPadraoV2(
+//     dataFeteps,
+//     "barV3",
+//     "Avaliação dos alunos e docentes a FETEPS - Feira Tecnológica Paula Souza",
+//     false,
+//     false,
+//     true
+// );
+
 graficoPadraoV2(dataInfraestrutura, "barV2", "Avalia\xE7\xE3o dos alunos sobre ".concat(dataInfraestrutura.pergunta), false, false, true);
 graficoPadraoV2(dataEspacoConveniencia, "barV8", "Avalia\xE7\xE3o dos alunos sobre ".concat(dataEspacoConveniencia.pergunta), false, false, true);
 graficoPadraoV2(dataSexo, "bar", "Total de pessoas por curso, docentes e funcionarios", true, false, true);
 graficoPadraoV2(dataAcessibilidadeFatec, "barV9", "Avalia\xE7\xE3o por acessibilidade", true, false, true);
-graficoPadraoV2(dataConhecimentoFatec, "barV10", "Fatec em Cotia", true, false, false);
-graficoPadraoV2(dataRedesFatec, "barV11", "Por onde conheceu", false, false, false);
+graficoPadraoV2(dataConhecimentoFatec, "barV10", "Fatec em Cotia", true, false, true);
+graficoPadraoV2(dataRedesFatec, "barV11", "Por onde conheceu", false, false, true);
+graficoPadraoV2(dataSexoPresentes, "barV12", "Total de pessoas por curso, docentes e funcionarios", false, false, true);
+graficoPadraoV2(dataInteresseFatec, "barV13", "Interesse nos cursos oferecidos pela FATEC COTIA", false, false, true);
+graficoPadraoV2(dataTipoEnsino, "barV14", "Qual tipo de institui\xE7\xE3o deseja estudar", false, false, true);
+graficoPadraoV2(dataNotaProbabilidade, "barV15", "Probabilidade de estudar na FATEC", false, false, true);
+graficoPadraoV2(dataSocialService, "barV17", "M\xEDdias Sociais", true, false, true);
 
 /***/ }),
 

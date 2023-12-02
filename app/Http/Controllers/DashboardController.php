@@ -12,6 +12,8 @@ use App\Services\Graficos\QualidadeFatecService;
 use App\Services\Graficos\TotaisRespostasService;
 use App\Services\Graficos\CorpoDocenteFatecService;
 use App\Services\Graficos\DidaticaDocenteFatecService;
+use App\Services\Graficos\SatisfacaoService;
+use App\Services\Graficos\MidiaSocialService;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -48,30 +50,10 @@ class DashboardController extends Controller
         TotaisRespostasService $totaisRespostasService,
         CorpoDocenteFatecService $corpoDocenteFatecService,
         DidaticaDocenteFatecService $didaticaDocenteFatecService,
+        SatisfacaoService $satisfacaoService,
+        MidiaSocialService $midiaSocialService,
         InfraestruturaService $infraestruturaService
     ) {
-
-        $jsonContent = File::get(storage_path('json') . '/csvjson.json');
-        $jsonContent = collect(json_decode($jsonContent));
-        $jsonContent = $jsonContent->filter(function($item){
-            // 'Company1983','Company2636'
-            return in_array($item->EMPRESA, ['Company2636']);
-        })
-        ->map(function($item) {
-            $dataResposta = Carbon::createFromFormat('n/j/y G:i', $item->DATA_RESPOSTA);
-            $item->ano = $dataResposta->format('Y');
-            return $item;
-        })
-        ->groupBy('ano');
-        foreach($jsonContent as $ano => $dados) {
-            $nps = $dados->pluck('RESPOSTA_NPS')->toArray();
-            dump($ano);
-            dump(implode(', ', $nps));
-            dump($this->calcularNPS($nps));
-            dump('===========================');
-        }
-
-        die;
 
         $jsonContent = File::get(storage_path('json') . '/teste.json');
         $jsonContent = collect(json_decode($jsonContent));
@@ -86,7 +68,16 @@ class DashboardController extends Controller
             }
             $conhecimentoRede['series']['data'][$v->label]++;
         }
-        $conhecimentoRede['series'][0]['data'] = array_values($conhecimentoRede['series']['data']);
+        $conhecimentoRede['label'] = array_map(function($item){
+            return explode('/',str_replace([' e '],['/'],$item));
+        },$conhecimentoRede['label']);
+        $valores = array_values($conhecimentoRede['series']['data']);
+        $total = array_sum($valores);
+        $valores = array_map(function($item) use ($total){
+            return number_format(($item * 100) / $total, 2);
+        }, $valores);
+
+        $conhecimentoRede['series'][0]['data'] = $valores;
         $conhecimentoRede['series'][0]['name'] = 'Informação vestibular';
         unset($conhecimentoRede['series']['data']);
 
@@ -112,7 +103,9 @@ class DashboardController extends Controller
         $dataCorpoDocenteFatec = $corpoDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataAcessibilidadeFatec = $corpoDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario, 100);
         $dataDidaticaDocente = $didaticaDocenteFatecService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataSatisfacao = $satisfacaoService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataTotaisRespostas = $totaisRespostasService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
+        $dataSocialService = $midiaSocialService->handler($dadoAlunoGeral, $dadoDocente, $dadoFuncionario);
         $dataConhecimentoRede = $conhecimentoRede;
         // dd($dataTotaisRespostas);
 
@@ -127,9 +120,11 @@ class DashboardController extends Controller
                 'dataEspacoConveniencia',
                 'dataFeteps',
                 'dataIdade',
+                'dataSocialService',
                 'dataQualidadeFatec',
                 'dataCorpoDocenteFatec',
                 'dataDidaticaDocente',
+                'dataSatisfacao',
                 'dataTotaisRespostas',
                 'dataConhecimentoRede',
                 'dataAcessibilidadeFatec'
@@ -149,6 +144,9 @@ class DashboardController extends Controller
             $basename = $file->getBasename('.json');
 
             if($basename == 'teste') {
+                continue;
+            }
+            if($basename == 'csvjson') {
                 continue;
             }
 

@@ -137,8 +137,19 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-6 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Generos por Curso</h3>
+                            </div>
+                            <div id="barV12"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-6 mb-3">
                     <div class="bottom-data">
                         <div class="orders">
                             <div class="header">
@@ -146,6 +157,41 @@
                                 <h3>Comparação Notas Aluno X Docentes sobre a FETEPS</h3>
                             </div>
                             <div id="barV3"></div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="col-md-6 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Interesse cursos oferecidos pela Fatec</h3>
+                            </div>
+                            <div id="barV13"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Interesse cursos oferecidos pela Fatec</h3>
+                            </div>
+                            <div id="barV14"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>De 1 a 5, qual a probabilidade de estudar na FATEC</h3>
+                            </div>
+                            <div id="barV15"></div>
                         </div>
                     </div>
                 </div>
@@ -266,6 +312,34 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Satisfação pelo curso escolhido</h3>
+                                {{-- <i class='bx bx-filter'></i>
+                                <i class='bx bx-search'></i> --}}
+                            </div>
+
+                            <div id="barV16"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="bottom-data">
+                        <div class="orders">
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Mídias Sociais</h3>
+                                {{-- <i class='bx bx-filter'></i>
+                                <i class='bx bx-search'></i> --}}
+                            </div>
+
+                            <div id="barV17"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -284,8 +358,19 @@
         var dataDidaticaDocente = {{ Illuminate\Support\Js::from($dataDidaticaDocente) }};
         var dataEspacoConveniencia = {{ Illuminate\Support\Js::from($dataEspacoConveniencia) }};
         var dataAcessibilidadeFatec = {{ Illuminate\Support\Js::from($dataAcessibilidadeFatec) }};
-        var dataConhecimentoFatec = {'label':['Já ouvi falar mas não sabia que era publica', 'Nunca ouvi falar','Já ouvi falar e não sabia que era pública','Sei um pouco sobre a fatec e os cursos','Sei bastante sobre a fatec e os cursos'],"series":[{"name":"Conhecimento Fatec","data":[264,232,170,131,24]}]};
+        var dataSatisfacao = {{ Illuminate\Support\Js::from($dataSatisfacao) }};
+        var dataSocialService = {{ Illuminate\Support\Js::from($dataSocialService) }};
+        var dataConhecimentoFatec = {'label':[['Já ouvi falar mas','não sabia que era publica'], 'Nunca ouvi falar',['Já ouvi falar e','sabia que era pública'],['Sei um pouco sobre','a fatec e os cursos'],['Sei bastante sobre a','fatec e os cursos']],"series":[{"name":"Conhecimento Fatec","data":[264,232,170,131,24]}]};
         var dataRedesFatec = {{ Illuminate\Support\Js::from($dataConhecimentoRede) }};
+        var dataSexoPresentes = {"label":[["Ciência","de","Dados"],["Desenvolvimento","de","Software","Multiplataforma"],["Gestão","da","Produção","Industrial"],["Gestão","Empresarial"],["Nenhum"]],"series":[{"name":"Masculino","data":[7.67,19.12,5.72,16.56,12.05]},{"name":"Feminino","data":[6.333,12.91,4.99,21.07,18.02]}]};
+        var dataInteresseFatec = {"label":[["Ciência","de","Dados"],["Desenvolvimento","de","Software","Multiplataforma"],["Gestão","da","Produção","Industrial"],["Gestão","Empresarial"],["Nenhum"]],"series":[{"name":"Interesse","data":[14,32,10.7,37.6,30.1]}]}
+        var dataTipoEnsino = {"label":[["Pública"],["Privada"],["Nenhum"]],"series":[{"name":"Tipo instituição de ensino","data":[71.4,25.3,3.3]}]};
+        var dataNotaProbabilidade = {"label":[["1"],["2"],["3"],["4"],["5"]],"series":[{"name":"Probabilidade","data":[4.8,10,31.7,26.3,27.4]}]};
+        
+        var totalConhecimento = eval(dataConhecimentoFatec.series[0].data.join('+'));
+        dataConhecimentoFatec.series[0].data = dataConhecimentoFatec.series[0].data.map((item) => {
+            return ((item * 100) / totalConhecimento).toFixed(2);
+        });
     </script>
     <script src="/js/app.js"></script>
 </body>
